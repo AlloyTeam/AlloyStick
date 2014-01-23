@@ -1,83 +1,178 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>AlloyStic HTML5骨骼动画</title>
+<link rel="stylesheet" href="./css/main.css">
+<link rel="stylesheet" href="./css/prism.css">
+</head>
+<body>
+	<div class="page">
+		<header>
+			<div class="logo_info">skeleton animation for HTML5</div>
+			<div class="logo">AlloyStick <span class="logo_sub">by AlloyTeam</span></div>
+			<i class="logo_extra"></i>
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+			<nav>
+				<div class="navlink">特性介绍 <i class="link_bg"></i></div>
+				<div class="navlink">Demo <i class="link_bg"></i></div>
+				<div class="navlink">使用教程 <i class="link_bg"></i></div>
+				<div class="navlink">下载 <i class="link_bg"></i></div>
+				<div class="navlink">关于我们 <i class="link_bg"></i></div>	
+			</nav>
+		</header>
 
-    <title>Alloystick by AlloyTeam</title>
-  </head>
+		<section class="banner">
+			<div class="intro">
+				<p>AlloyStick: js动画库 + 动画编辑器</p>
+				<p>设置简单的动画关键帧，依靠强大的自动补间和骨骼关系，就可以制作出生动canvas骨骼动画，把它应用在你的PC，你的平板和你的手机里</p>
+			</div>
+			
+		</section>
 
-  <body>
-    <header>
-      <div class="inner">
-        <h1>Alloystick</h1>
-        <h2>AlloyStick</h2>
-        <a href="https://github.com/AlloyTeam/AlloyStick" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+		<section class="features">
+			<div class="feature">
+				<i class="feature_line"></i>
+				<ul>
+					<li>动作自动补间</li>
+					<li>拖动骨骼编辑动画</li>
+					<li>对比传统sprite图位图资源少90%</li>
+					<li>减少设计师大量重复工作</li>
+				</ul>
+				<i class="feature_line"></i>
+			</div>
+			<div class="feature">
+				<i class="feature_line"></i>
+				<ul>
+					<li>动作自动补间</li>
+					<li>拖动骨骼编辑动画</li>
+					<li>对比传统sprite图位图资源少90%</li>
+					<li>减少设计师大量重复工作</li>
+				</ul>
+				<i class="feature_line"></i>
+			</div>
+			<div class="feature">
+				<i class="feature_line"></i>
+				<ul>
+					<li>动作自动补间</li>
+					<li>拖动骨骼编辑动画</li>
+					<li>对比传统sprite图位图资源少90%</li>
+					<li>减少设计师大量重复工作</li>
+				</ul>
+				<i class="feature_line"></i>
+			</div>
+		</section>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+		<section id="demo">
+			<canvas id="canvas" width="800px" height="600px">抱歉，你的浏览器不支持canvas，建议你使用Chrome浏览器，杜绝360浏览器。</canvas>
+			<img src="./data/texture.png" id="xiaoxiaoImg" style="display:none;">	
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+			<div class="wording">
+				<div id="step1" class="step">
+					<p>你只看到我动画生硬骨骼会<span>断裂</span>
+					<p style="left:200px;">却没看到我几帧动画还能<span>自动补间</span>衔接动作</p>
+				</div>
+				
+				<div id="step2" class="step">
+					<p>你有你的态度，我有我的想法</p>
+				</div>
+				
+				<div id="step3" class="step">
+					<p>你嘲讽我的<span>完成度低</span>功能少idea差，我可怜你连动手做的<span style="color:#E05A26">勇气</span>都没有</p>
+				</div>
+				
+				<div id="step4" class="step">
+					<p>你可以轻视我不是<span>第一人</span>不是<span>先驱者</span></p>
+					<p style="left: 100px;font-size: 32px;top: -15px;">我会证明这是谁的时代</p>
+				</div>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+				<div id="step5" class="step">
+					<p>做动画注定是痛苦的旅行，路上总少不了轻蔑和<span>肥皂</span></p>
+					<p><span style="font-size: 35px;">蛋</span>,又怎样</p>
+				</div>
+				
+				<div id="step6" class="last_step">
+					<p>哪怕我居然情不自禁地去捡，也要展示我的<span>菊花</span><span>灿烂无比</span></p>
+					<p class="last_word">我是小小，我为AlloyStick代言</p>
+				</div>
+			</div>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+			<div class="combos">
+				<div id="combo1">
+					<i class="key_j"> J </i> + <i class="key_j">J</i> + <i class="key_k">K</i> + <i class="key_l">L</i>
+				</div>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+				<div id="combo2">
+					<i class="key_j"> J </i> + <i class="key_j">J</i> + <i class="key_k">K</i> + <i class="key_l">L</i> + <i class="key_n">N</i>
+				</div>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+				<div id="combo3">
+					<i class="key_o">O</i> + <i class="key_p">P</i> + <i class="key_n">N</i> 
+				</div>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+				<div id="combo4">
+					<i class="key_r">R</i>+<i class="key_o">O</i>+<i class="key_n">N</i>
+				</div>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+				<div id="combo5">
+					<i class="key_r">R</i>+ <i class="key_p">P</i> + <i class="key_l">L</i>
+				</div>
+			</div>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+			<i class="section_line"></i>
+		</section>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+		<section id="tutorial" class="tutorial">
+			<h1> How Easy Is It </h1>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+			<div class="tuto1">
+				<p>既然是动画，我们就不能单靠编码的力量去完成。我们第一步是去动画编辑器里面，制作我们的骨骼动画。只需要在编辑器里绑定骨骼关系，设置简单的动画关键帧，依靠我们强大的自动补间和骨骼关系，就可以制作出生动canvas动画，把它运行在你的PC，你的平板和你的手机里。可惜的是，我们骨骼动画编辑还在努力完善中。</p>
+			</div>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </section>
+			<div class="tuto2">
+				
+			</div>
 
-        <aside id="sidebar">
-          <a href="https://github.com/AlloyTeam/AlloyStick/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/AlloyTeam/AlloyStick/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
+			<div class="tuto3">
+				
+			</div>
 
-          <p class="repo-owner"><a href="https://github.com/AlloyTeam/AlloyStick"></a> is maintained by <a href="https://github.com/AlloyTeam">AlloyTeam</a>.</p>
+			<div class="code_block">
+				<pre class="language-javascript"><code>
+var canvas = document.getElementById('canvas'),
+	textureImg = document.getElementById('knightImg');
 
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
-    </div>
+var stage = new alloyge.Stage(canvas.getContext('2d'));
+var	armature = new alloysk.Armature('knight',textureImg);
 
-  
-  </body>
+// animationName ,totalFrames,transitionFrame,isLoop
+armature.playTo('run',40,15,true);
+armature.setPos(150,300);	
+
+stage.addObj(armature);
+
+alloyge.monitorFPS(stage);  // 启动FPS监听器 (辅助功能 非必须)
+
+// 开始场景里的动画，并且可以传入callback循环调用
+						stage.start();
+				</code></pre>
+			</div>
+			<i class="section_line"></i>
+		</section>
+	</div>
+
+	
+
+	<footer>© 2011-2014 <a target="_blank" href="http://www.alloyteam.com/">Tencent Alloyteam</a>. All Rights Reserved.</footer>
+
+	<!-- 注意这里的js加载顺序，先加载游戏引擎，再加载资源js-->
+	<script src='./js/alloyGameEngine_0.35h.js'></script>
+	<script src='./js/alloyStick_0.35h.js'></script>
+	<script src='./data/xx_texture.js'></script> 
+	<script src='./data/xx_skeleton.js'></script>
+
+	<script src="./js/demo.js"></script>
+	<script src="./js/prism.js"></script>
+	
+</body>
 </html>
