@@ -1,16 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>AlloyStic HTML5骨骼动画</title>
+<meta charset="utf-8">
+<title>AlloyStick HTML5骨骼动画引擎 - AlloyTeam</title>
 <link rel="stylesheet" href="./css/main.css">
 <link rel="stylesheet" href="./css/prism.css">
 </head>
 <body>
 	<div class="page">
+		<section class="banner"></section>
 		<header>
+			<img class="logo" src="img/alloystick_logo.jpg" />
 			<div class="logo_info">skeleton animation for HTML5</div>
-			<div class="logo">AlloyStick <span class="logo_sub">by AlloyTeam</span></div>
+			<div class="logo_text">AlloyStick <span class="logo_sub">by AlloyTeam</span></div>
 			<i class="logo_extra"></i>
 
 			<nav>
@@ -22,49 +24,8 @@
 			</nav>
 		</header>
 
-		<section class="banner">
-			<div class="intro">
-				<p>AlloyStick: js动画库 + 动画编辑器</p>
-				<p>设置简单的动画关键帧，依靠强大的自动补间和骨骼关系，就可以制作出生动canvas骨骼动画，把它应用在你的PC，你的平板和你的手机里</p>
-			</div>
-			
-		</section>
-
-		<section class="features">
-			<div class="feature">
-				<i class="feature_line"></i>
-				<ul>
-					<li>动作自动补间</li>
-					<li>拖动骨骼编辑动画</li>
-					<li>对比传统sprite图位图资源少90%</li>
-					<li>减少设计师大量重复工作</li>
-				</ul>
-				<i class="feature_line"></i>
-			</div>
-			<div class="feature">
-				<i class="feature_line"></i>
-				<ul>
-					<li>动作自动补间</li>
-					<li>拖动骨骼编辑动画</li>
-					<li>对比传统sprite图位图资源少90%</li>
-					<li>减少设计师大量重复工作</li>
-				</ul>
-				<i class="feature_line"></i>
-			</div>
-			<div class="feature">
-				<i class="feature_line"></i>
-				<ul>
-					<li>动作自动补间</li>
-					<li>拖动骨骼编辑动画</li>
-					<li>对比传统sprite图位图资源少90%</li>
-					<li>减少设计师大量重复工作</li>
-				</ul>
-				<i class="feature_line"></i>
-			</div>
-		</section>
-
 		<section id="demo">
-			<canvas id="canvas" width="800px" height="600px">抱歉，你的浏览器不支持canvas，建议你使用Chrome浏览器，杜绝360浏览器。</canvas>
+			<canvas id="canvas" width="800px" height="500px">抱歉，你的浏览器不支持canvas，建议你使用Chrome浏览器，杜绝360浏览器。</canvas>
 			<img src="./data/texture.png" id="xiaoxiaoImg" style="display:none;">	
 
 			<div class="wording">
@@ -119,11 +80,51 @@
 				</div>
 			</div>
 
-			<i class="section_line"></i>
+			
+		</section>
+		
+		<div class="intro">
+				<h3>AlloyStick 介绍</h3>
+				<p>AlloyStick 是采用HTML5技术开发的一个骨骼动画引擎，可以用于HTML5动画开发、HTML5游戏开发；AlloyStick 主要由骨骼动画引擎和骨骼动画编辑器两部分组成，骨骼动画编辑器提供强大的骨骼动画编辑功能，通过设置动画关键帧，依靠强大的自动补间和骨骼关系，就可以制作出逼真、生动的Canvas骨骼动画，可以畅快的运行在PC、手机、平板等设备里。</p>
+			</div>
+
+		<section class="features">
+			<div class="feature">
+				<i class="feature_line"></i>
+				<ul>
+					<li>动作自动补间</li>
+					<li>拖动骨骼编辑动画</li>
+					<li>对比传统sprite图位图资源少90%</li>
+					<li>减少设计师大量重复工作</li>
+				</ul>
+				
+			</div>
+			<div class="feature">
+				<i class="feature_line"></i>
+				<ul>
+					<li>动作自动补间</li>
+					<li>拖动骨骼编辑动画</li>
+					<li>对比传统sprite图位图资源少90%</li>
+					<li>减少设计师大量重复工作</li>
+				</ul>
+				
+			</div>
+			<div class="feature">
+				<i class="feature_line"></i>
+				<ul>
+					<li>动作自动补间</li>
+					<li>拖动骨骼编辑动画</li>
+					<li>对比传统sprite图位图资源少90%</li>
+					<li>减少设计师大量重复工作</li>
+				</ul>
+				
+			</div>
 		</section>
 
+		
+
 		<section id="tutorial" class="tutorial">
-			<h1> How Easy Is It </h1>
+			<h3>快速上手</h3>
 
 			<div class="tuto1">
 				<p>既然是动画，我们就不能单靠编码的力量去完成。我们第一步是去动画编辑器里面，制作我们的骨骼动画。只需要在编辑器里绑定骨骼关系，设置简单的动画关键帧，依靠我们强大的自动补间和骨骼关系，就可以制作出生动canvas动画，把它运行在你的PC，你的平板和你的手机里。可惜的是，我们骨骼动画编辑还在努力完善中。</p>
@@ -150,20 +151,27 @@ armature.playTo('run',40,15,true);
 armature.setPos(150,300);	
 
 stage.addObj(armature);
-
-alloyge.monitorFPS(stage);  // 启动FPS监听器 (辅助功能 非必须)
+// 启动FPS监听器 (辅助功能 非必须)
+alloyge.monitorFPS(stage);  
 
 // 开始场景里的动画，并且可以传入callback循环调用
-						stage.start();
+stage.start();
 				</code></pre>
 			</div>
-			<i class="section_line"></i>
+			
+		</section>
+
+		<section id="tutorial" class="tutorial">
+			<h3>下载</h3>
+			<div class="tuto1">
+				<p>这么好的东西，在哪里下载呢？</p>
+			</div>
 		</section>
 	</div>
 
 	
 
-	<footer>© 2011-2014 <a target="_blank" href="http://www.alloyteam.com/">Tencent Alloyteam</a>. All Rights Reserved.</footer>
+	<footer>© 2011-2014 <a target="_blank" href="http://www.alloyteam.com/">Tencent AlloyTeam</a>. All Rights Reserved.</footer>
 
 	<!-- 注意这里的js加载顺序，先加载游戏引擎，再加载资源js-->
 	<script src='./js/alloyGameEngine_0.35h.js'></script>

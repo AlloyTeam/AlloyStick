@@ -1,7 +1,8 @@
 body{
-	font: 16px/2 'Microsoft YaHei',sans-serif;
-
 	margin: 0;
+	padding: 0;
+	color: #333;
+	font: 16px/2 'Microsoft YaHei',sans-serif;
 	background: #F2F2F2;
 }
 
@@ -12,6 +13,14 @@ a{
 a:hover{
 	color: #58A7EB;
 	text-decoration: underline;
+}
+h3{
+	color: #FFAA00;
+	font: 40px 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','Microsoft YaHei',sans-serif;
+
+}
+p{
+	text-indent: 2em;
 }
 header{
 	position: relative;
@@ -30,8 +39,7 @@ nav{
 	width: 280px;
 	font-size: 18px;
 	text-align: right;
-	padding-right: 20px;
-	border-right: 10px solid;
+	border-right: 3px solid #FAC851;
 }
 
 footer{
@@ -51,7 +59,7 @@ footer{
 	left: 400px;
 	top: 0;
 	width: 624px;
-	font: 20px 'Microsoft YaHei';
+	font: 20px 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','Microsoft YaHei',sans-serif;
 }
 .wording div{
 	position: absolute;
@@ -65,6 +73,7 @@ footer{
 }
 .wording p{
 	position: relative;
+
 }
 .wording span{
 	color: #4AB927;
@@ -94,7 +103,7 @@ footer{
 }
 .last_word{
 	color: #B6B6B6;
-	font: italic bold 25px cursive;
+
 }
 .combos{
 	position: absolute;
@@ -152,11 +161,19 @@ footer{
 
 
 .page{
-	width: 1024px;
-	margin: 8px auto 0;
+	padding:10px;
+	width: 980px;
+	margin: 0 auto;
 }
-
 .logo{
+	display: block;
+	float:left;
+	margin:65px 0 0 0;
+	width:100px;
+	height: 100px;
+}
+.logo_text{
+	color: #000;
 	font-size: 120px;
 	font-family: 'Microsoft YaHei';
 	line-height: 140px;
@@ -166,12 +183,13 @@ footer{
 	font-size: 20px;
 	left: -165px;
 	top: 30px;
-	color: #BDBDBD;
+	color: #666666;
+	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','Microsoft YaHei',sans-serif；
 
 }
 .logo_info{
 	text-indent: 125px;
-	color: #8A9B7A;
+	color: #AAAAAA;
 	font-size: 30px;
 }
 .logo_extra{
@@ -179,7 +197,7 @@ footer{
 	width: 11px;
 	height: 148px;
 	background: #000;
-	left: 94px;
+	left: 194px;
 	top: 0;
 }
 
@@ -190,14 +208,15 @@ footer{
 
 	width: 10px;
 	height: 190px;
-	background: url(../img/checker_grey.png) repeat;
+	background:  url(../img/checker_grey.png) repeat;
 }
 
 .navlink{
 	cursor: pointer;
 	padding: 5px 10px 5px 0;
 	position: relative;
-	color: #529146;
+	/*color: #529146;*/
+	color: #FF8500;
 
 	-webkit-transition: color 1s;
 	-moz-transition: color 1s;
@@ -213,7 +232,7 @@ footer{
 	z-index: -1;
 	top: 0;
 	right: 0;
-	background-color: #529146;
+	background-color: #FAC851;
 	-webkit-transition: width 1s;
 	-moz-transition: width 1s;
 	-ms-transition: width 1s;
@@ -253,8 +272,9 @@ footer{
 }
 
 
-.section_line,.feature_line{
-	background: url(../img/checker_grey.png) repeat;
+
+.feature_line{
+	background: url(../img/checker_grey.png) repeat-x;
 	width: 100%;
 	height: 10px;
 	z-index: 10;
@@ -267,7 +287,7 @@ footer{
 }
 
 .feature{
-	width: 328px;
+	width: 300px;
 	height: 200px;
 	margin-left: 10px;
 	display: inline-block;
