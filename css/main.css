@@ -2,7 +2,7 @@ body{
 	margin: 0;
 	padding: 0;
 	color: #333;
-	font: 16px/2 'Microsoft YaHei',sans-serif;
+	font: 16px/2 Tahoma, 'Microsoft YaHei', sans-serif;
 	background: #F2F2F2;
 }
 
@@ -43,9 +43,9 @@ nav{
 }
 
 footer{
-	background: #000;
-	color: white;
-	height: 50px;
+
+	color: #666;
+	height: 100px;
 	text-align: center;
 	line-height: 50px;
 	margin-top: 100px; 
@@ -161,7 +161,7 @@ footer{
 
 
 .page{
-	padding:10px;
+	padding:0 10px;
 	width: 980px;
 	margin: 0 auto;
 }
