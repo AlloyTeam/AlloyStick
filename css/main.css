@@ -194,11 +194,10 @@ footer{
 }
 .logo_extra{
 	position: absolute;
-	width: 11px;
-	height: 148px;
-	background: #000;
-	left: 194px;
+	left: 204px;
 	top: 0;
+	font-size: 120px;
+	font-family: 'Microsoft YaHei';
 }
 
 .nav_extra{
