@@ -24,6 +24,7 @@ p{
 }
 header{
 	position: relative;
+	height: 200px;
 	line-height: 1.5;
 	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','Microsoft YaHei',sans-serif;
 }
@@ -165,40 +166,49 @@ footer{
 	width: 980px;
 	margin: 0 auto;
 }
-.logo{
+.logo_img{
 	display: block;
 	float:left;
-	margin:45px 0 0 0;
-	width:120px;
-	height: 120px;
+	margin: 68px 0 0 0;
+	width: 95px;
+	height: 95px;
 }
-.logo_text{
-	color: #000;
-	font-size: 120px;
-	font-family: 'Microsoft YaHei';
-	line-height: 140px;
-}
-.logo_sub{
-	position: relative;
-	font-size: 20px;
-	left: -110px;
-	top: 30px;
-	color: #666666;
-	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','Microsoft YaHei',sans-serif；
 
-}
 .logo_info{
 	text-indent: 125px;
 	color: #AAAAAA;
 	font-size: 30px;
 }
+
+
+.logo_text{
+	float:left;
+	color: #000;
+	font-size: 120px;
+	font-family: 'Microsoft YaHei';
+	line-height: 140px;
+	height:200px;
+}
 .logo_extra{
-	position: absolute;
-	left: 204px;
-	top: 0;
+	float:left;
+	position: relative;
+	left: -475px;
+	top: -70px;
+	color: #000;
 	font-size: 120px;
 	font-family: 'Microsoft YaHei';
 }
+.logo_footer{
+	float:left;
+	position: relative;
+	font-size: 20px;
+	left: -100px;
+	top: 130px;
+	color: #666666;
+	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','Microsoft YaHei',sans-serif；
+
+}
+
 
 .nav_extra{
 	position: absolute;
