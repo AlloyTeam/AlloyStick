@@ -7,7 +7,7 @@ var demoApp = function(){
 	var	xiaoxiao = new alloysk.Armature('xiaoxiao',textureImg);
 
 	xiaoxiao.setEaseType(false);
-	xiaoxiao.playTo('relax',25,10,false);
+	xiaoxiao.playTo('comeon',40,10,false);
 	xiaoxiao.setPos(250,300);
 
 
@@ -63,6 +63,15 @@ var demoApp = function(){
 		// 		transitionFrames : 10
 		// 	})
 		// }
+
+		if(e.keyCode == '77'){   // 'm' come on
+			animStack.push({
+				animName : 'comeon', 
+				totalFrames : 35,
+				transitionFrames : 8
+			})
+		}
+
 		if(e.keyCode == '78'){  // 'n' 擦擦大腿
 			animStack.push({
 				animName : 'relax',

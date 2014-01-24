@@ -10,7 +10,7 @@
 	<div class="page">
 		<section class="banner"></section>
 		<header>
-			<img class="logo" src="img/alloystick_logo.jpg" />
+			<img class="logo" src="img/alloystick_logo.png" />
 			<div class="logo_info">Skeleton animation for HTML5</div>
 			<div class="logo_text">AlloyStick<div class="logo_extra">l</div><span class="logo_sub">by AlloyTeam</span></div>
 			
@@ -79,8 +79,7 @@
 					<i class="key_r">R</i>+ <i class="key_p">P</i> + <i class="key_l">L</i>
 				</div>
 			</div>
-
-			
+		
 		</section>
 		
 		<div class="intro">
@@ -98,8 +97,19 @@
 					<li>减少设计师大量手工绘制工作</li>
 					<li>比Sprite动画位图资源少90%</li>
 				</ul>
+			</div>
+			<div class="feature">
+				<i class="feature_line"></i>
+				<ul>
+					<li>骨碌可编码控制</li>
+					<li>事件帧的加入，自由控制动画触发事件</li>
+					<li>角色换装或变换武器</li>
+					<li>骨碌动作可以复制，多个角色可共用一个动作数据</li>
+					<li>可结合物理引擎，扩展广泛</li>
+				</ul>
 				
 			</div>
+
 		
 		</section>
 
@@ -121,26 +131,55 @@
 			</div>
 
 			<div class="code_block">
-				<pre class="language-javascript"><code>
-var canvas = document.getElementById('canvas'),
-	textureImg = document.getElementById('knightImg');
+				<pre class="language-markup"><code>
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;骨骼动画Demo&lt;/title&gt;
+    &lt;style type="text/css" media="screen"&gt;
+        html, body { background-color: #666666;}
+        body { margin:0; padding:0; overflow:hidden; }
+    &lt;/style&gt;
 
-var stage = new alloyge.Stage(canvas.getContext('2d'));
-var	armature = new alloysk.Armature('knight',textureImg);
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;canvas id="canvas" width="800px" height="600px"&gt;
+    抱歉，你的浏览器不支持canvas，建议你使用Chrome浏览器，杜绝360浏览器。&lt;/canvas&gt;
+    &lt;!-- 蒙皮资源以img标签的形式引入，也可用js引入--&gt;
+    &lt;img src="./data/texture.png" id="xiaoxiaoImg" style="display:none;"&gt;
+&lt;/body&gt;
 
-// animationName ,totalFrames,transitionFrame,isLoop
-armature.playTo('run',40,15,true);
-armature.setPos(150,300);	
+&lt;!-- 注意这里的js加载顺序，先加载游戏引擎，再加载资源js--&gt;
+&lt;script src='./js/alloystick_v0.35h.js'&gt;&lt;/script&gt;
+&lt;script src='./data/xx_resource.js'&gt;&lt;/script&gt;
+&lt;script&gt;
+var demoApp = function(){
+    var canvas = document.getElementById('canvas'),
+        textureImg = document.getElementById('xiaoxiaoImg');
+    var stage = new alloyge.Stage(canvas.getContext('2d'));
+    var player = new alloysk.Armature('xiaoxiao',textureImg);
 
-stage.addObj(armature);
-// 启动FPS监听器 (辅助功能 非必须)
-alloyge.monitorFPS(stage);  
+    // animationName ,totalFrames,transitionFrame,isLoop
+    player.playTo('roll',100,15,true);
+    player.setPos(300,300); 
+    player.setEaseType(false);
 
-// 开始场景里的动画，并且可以传入callback循环调用
-stage.start();
+    stage.addObj(player);
+    // 启动FPS监听器 (辅助功能 非必须)
+    alloyge.monitorFPS(stage);
+    // 开始场景里的动画，并且可以传入callback循环调用
+    stage.start();
+}
+window.onload = demoApp;
+&lt;/script&gt;
+&lt;/html&gt;
 				</code></pre>
-			</div>
-			
+			</div><!-- end of code block-->
+			<p><a href="./demo_simple.html" target="_blank">点击查看上面的代码运行效果</a></p>
+
+			<p>第一步引入alloysk.js，再加入资源resource.js。其中注意的是蒙皮png是以img标签引入，当然也可js的方式加载。resource.js里面包括蒙皮数据，骨骼关系数据，和所有动作数据包括动画名字和参数。第二步，根据资源文件new出舞台对象Stage和角色对象Armature，Stage对象管理Armature对象。playTo方法时核心方法，让角色播放不同动作动画，你可以增加事件去切换不同动作。最后启动舞台stage.start().</p>
+
 		</section>
 		
 		<section id="tutorial" class="tutorial">
@@ -166,10 +205,8 @@ stage.start();
 	</footer>
 
 	<!-- 注意这里的js加载顺序，先加载游戏引擎，再加载资源js-->
-	<script src='./js/alloyGameEngine_0.35h.js'></script>
-	<script src='./js/alloyStick_0.35h.js'></script>
-	<script src='./data/xx_texture.js'></script> 
-	<script src='./data/xx_skeleton.js'></script>
+	<script src='./js/alloystick_v0.35h.js'></script>
+	<script src='./data/xx_resource.js'></script>
 
 	<script src="./js/demo.js"></script>
 	<script src="./js/prism.js"></script>

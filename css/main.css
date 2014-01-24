@@ -137,7 +137,7 @@ footer{
 	left: 100px;
 }
 #combo2{
-	top: 100px;
+	top: 140px;
 	left: 250px;
 }
 #combo3{
@@ -181,7 +181,7 @@ footer{
 .logo_sub{
 	position: relative;
 	font-size: 20px;
-	left: -165px;
+	left: -110px;
 	top: 30px;
 	color: #666666;
 	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','Microsoft YaHei',sans-serif；
@@ -286,22 +286,19 @@ footer{
 }
 
 .feature{
-	width: 300px;
+	width: 400px;
 	height: 200px;
-	margin-left: 10px;
+	margin-right: 50px;
 	display: inline-block;
 }
 
 .tutorial{
 
 }
-
-/*.tutorial .intro_block{
-	width: 424px;
-	display: inline-block;
+.code_block{
+	width: 900px;
+	height: 500px;
+	overflow: auto;
+	line-height: 1.5;
+	margin: 0 auto;
 }
-
-.tutorial .code_block{
-	width: 600px;
-	display: inline-block;
-}*/

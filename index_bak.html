@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>AlloyStic HTML5骨骼动画</title>
+<link rel="stylesheet" href="./css/main.css">
+<link rel="stylesheet" href="./css/prism.css">
+</head>
+<body>
+	<div class="page">
+		<header>
+			<div class="logo_info">skeleton animation for HTML5</div>
+			<div class="logo">AlloyStick <span class="logo_sub">by AlloyTeam</span></div>
+			<i class="logo_extra"></i>
+
+			<nav>
+				<div class="navlink">特性介绍 <i class="link_bg"></i></div>
+				<div class="navlink">Demo <i class="link_bg"></i></div>
+				<div class="navlink">使用教程 <i class="link_bg"></i></div>
+				<div class="navlink">下载 <i class="link_bg"></i></div>
+				<div class="navlink">关于我们 <i class="link_bg"></i></div>	
+			</nav>
+		</header>
+
+		<section class="banner">
+			<div class="intro">
+				<p>AlloyStick: js动画库 + 动画编辑器</p>
+				<p>设置简单的动画关键帧，依靠强大的自动补间和骨骼关系，就可以制作出生动canvas骨骼动画，把它应用在你的PC，你的平板和你的手机里</p>
+			</div>
+			
+		</section>
+
+		<section class="features">
+			<div class="feature">
+				<i class="feature_line"></i>
+				<ul>
+					<li>动作自动补间</li>
+					<li>拖动骨骼编辑动画</li>
+					<li>对比传统sprite图位图资源少90%</li>
+					<li>减少设计师大量重复工作</li>
+				</ul>
+				<i class="feature_line"></i>
+			</div>
+			<div class="feature">
+				<i class="feature_line"></i>
+				<ul>
+					<li>动作自动补间</li>
+					<li>拖动骨骼编辑动画</li>
+					<li>对比传统sprite图位图资源少90%</li>
+					<li>减少设计师大量重复工作</li>
+				</ul>
+				<i class="feature_line"></i>
+			</div>
+			<div class="feature">
+				<i class="feature_line"></i>
+				<ul>
+					<li>动作自动补间</li>
+					<li>拖动骨骼编辑动画</li>
+					<li>对比传统sprite图位图资源少90%</li>
+					<li>减少设计师大量重复工作</li>
+				</ul>
+				<i class="feature_line"></i>
+			</div>
+		</section>
+
+		<section id="demo">
+			<canvas id="canvas" width="800px" height="600px">抱歉，你的浏览器不支持canvas，建议你使用Chrome浏览器，杜绝360浏览器。</canvas>
+			<img src="./data/texture.png" id="xiaoxiaoImg" style="display:none;">	
+
+			<div class="wording">
+				<div id="step1" class="step">
+					<p>你只看到我动画生硬骨骼会<span>断裂</span>
+					<p style="left:200px;">却没看到我几帧动画还能<span>自动补间</span>衔接动作</p>
+				</div>
+				
+				<div id="step2" class="step">
+					<p>你有你的态度，我有我的想法</p>
+				</div>
+				
+				<div id="step3" class="step">
+					<p>你嘲讽我的<span>完成度低</span>功能少idea差，我可怜你连动手做的<span style="color:#E05A26">勇气</span>都没有</p>
+				</div>
+				
+				<div id="step4" class="step">
+					<p>你可以轻视我不是<span>第一人</span>不是<span>先驱者</span></p>
+					<p style="left: 100px;font-size: 32px;top: -15px;">我会证明这是谁的时代</p>
+				</div>
+
+				<div id="step5" class="step">
+					<p>做动画注定是痛苦的旅行，路上总少不了轻蔑和<span>肥皂</span></p>
+					<p><span style="font-size: 35px;">蛋</span>,又怎样</p>
+				</div>
+				
+				<div id="step6" class="last_step">
+					<p>哪怕我居然情不自禁地去捡，也要展示我的<span>菊花</span><span>灿烂无比</span></p>
+					<p class="last_word">我是小小，我为AlloyStick代言</p>
+				</div>
+			</div>
+
+			<div class="combos">
+				<div id="combo1">
+					<i class="key_j"> J </i> + <i class="key_j">J</i> + <i class="key_k">K</i> + <i class="key_l">L</i>
+				</div>
+
+				<div id="combo2">
+					<i class="key_j"> J </i> + <i class="key_j">J</i> + <i class="key_k">K</i> + <i class="key_l">L</i> + <i class="key_n">N</i>
+				</div>
+
+				<div id="combo3">
+					<i class="key_o">O</i> + <i class="key_p">P</i> + <i class="key_n">N</i> 
+				</div>
+
+				<div id="combo4">
+					<i class="key_r">R</i>+<i class="key_o">O</i>+<i class="key_n">N</i>
+				</div>
+
+				<div id="combo5">
+					<i class="key_r">R</i>+ <i class="key_p">P</i> + <i class="key_l">L</i>
+				</div>
+			</div>
+
+			<i class="section_line"></i>
+		</section>
+
+		<section id="tutorial" class="tutorial">
+			<h1> How Easy Is It </h1>
+
+			<div class="tuto1">
+				<p>既然是动画，我们就不能单靠编码的力量去完成。我们第一步是去动画编辑器里面，制作我们的骨骼动画。只需要在编辑器里绑定骨骼关系，设置简单的动画关键帧，依靠我们强大的自动补间和骨骼关系，就可以制作出生动canvas动画，把它运行在你的PC，你的平板和你的手机里。可惜的是，我们骨骼动画编辑还在努力完善中。</p>
+			</div>
+
+			<div class="tuto2">
+				
+			</div>
+
+			<div class="tuto3">
+				
+			</div>
+
+			<div class="code_block">
+				<pre class="language-javascript"><code>
+var canvas = document.getElementById('canvas'),
+	textureImg = document.getElementById('knightImg');
+
+var stage = new alloyge.Stage(canvas.getContext('2d'));
+var	armature = new alloysk.Armature('knight',textureImg);
+
+// animationName ,totalFrames,transitionFrame,isLoop
+armature.playTo('run',40,15,true);
+armature.setPos(150,300);	
+
+stage.addObj(armature);
+
+alloyge.monitorFPS(stage);  // 启动FPS监听器 (辅助功能 非必须)
+
+// 开始场景里的动画，并且可以传入callback循环调用
+						stage.start();
+				</code></pre>
+			</div>
+			<i class="section_line"></i>
+		</section>
+	</div>
+
+	
+
+	<footer>© 2011-2014 <a target="_blank" href="http://www.alloyteam.com/">Tencent Alloyteam</a>. All Rights Reserved.</footer>
+
+	<!-- 注意这里的js加载顺序，先加载游戏引擎，再加载资源js-->
+	<script src='./js/alloyGameEngine_0.35h.js'></script>
+	<script src='./js/alloyStick_0.35h.js'></script>
+	<script src='./data/xx_texture.js'></script> 
+	<script src='./data/xx_skeleton.js'></script>
+
+	<script src="./js/demo.js"></script>
+	<script src="./js/prism.js"></script>
+	
+</body>
+</html>
