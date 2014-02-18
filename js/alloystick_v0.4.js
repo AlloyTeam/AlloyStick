@@ -1,7 +1,383 @@
 /**
+* 简单的HTML5游戏引擎
+* @author   bizaitan
+* @version  0.4
+*
+*/
+var alloyge = {};
+
+
+;(function(){
+
+var requestAnimationFrame = window.requestAnimationFrame ||
+							window.mozRequestAnimationFrame ||
+							window.webkitRequestAnimationFrame ||
+							window.msRequestAnimationFrame ||
+							function( callback ){  
+					            window.setTimeout(callback, 1000/60);  
+					        };  
+
+
+
+/**************  AlloyStict 基础函数 || 辅助类 *****************/
+;(function(){
+    function emptyFn() {};
+
+    alloyge.inherit = function(child, parent) {
+      var tmp = child;
+      emptyFn.prototype = parent.prototype;
+      child.prototype = new emptyFn;
+      child.prototype.constructor = tmp;
+      
+      child.prototype._super = parent.prototype;
+      return child;  
+   	};
+
+  	alloyge.delegate = function(fn,target){
+   		//注意这个匿名函数非常重要，即让fn不立刻执行，还能够让arguments正确传参
+   		return function(){
+			fn.apply(target,arguments);
+		}
+   	};
+
+
+   	alloyge.type = {
+   		isArray : function(o){
+			return o && (o.constructor === Array || ots.call(o) === "[object Array]");
+		},
+	    isObject : function(o) {
+	    	return o && (o.constructor === Object || ots.call(o) === "[object Object]");
+		},
+	    isBoolean : function(o) {
+	    	return (o === false || o) && (o.constructor === Boolean);
+		},
+	    isNumber : function(o) {
+	    	return (o === 0 || o) && o.constructor === Number;
+		},
+	    isUndefined : function(o) {
+	   		return typeof(o) === "undefined";
+		},
+	    isNull : function(o) {
+	   		return o === null;
+		},
+	    isFunction : function(o) {
+	   		return o && (o.constructor === Function);
+		},
+		isString : function(o) {
+	    	return (o === "" || o) && (o.constructor === String);
+		}
+   	}
+   
+
+
+   	alloyge.monitorDom = null; 
+   	alloyge.monitorFPS = function(scene){
+   		if(!alloyge.monitorDom){
+   			var monitorDom = document.createElement('div');
+   			monitorDom.id = 'alloyge_monitor';
+   			monitorDom.setAttribute('style','width: 150px;height: 80px;background-color: rgba(60, 60, 60, 0.51);'+
+   				'position: absolute;top: 0;left: 0;color: #ddd;');
+   			monitorDom.innerHTML = 'FPS:'+scene.avgFPS;
+   			document.body.appendChild(monitorDom);
+
+   			alloyge.monitorDom = monitorDom;
+   		}
+   	};
+
+   	//辅助函数，获取page visibility的前缀
+   	function getHiddenPrefix() {
+	    return 'hidden' in document ? 'hidden' : function() {
+	        var r = null;
+	        ['webkit', 'moz', 'ms', 'o'].forEach(function(prefix) {
+	            if((prefix + 'Hidden') in document) {
+	                return r = prefix + 'Hidden';
+	            }
+	        });
+	 
+	        return r;
+	    }();
+	};
+
+	alloyge.initEvenHadler = false;
+   	alloyge.addGobalEvenHandler = function(scene){
+   		if(getHiddenPrefix() == null || alloyge.initEvenHadler == true) return;  //不支持pagevisiblility 直接退出
+
+   		alloyge.initEvenHadler = true;	//全局之执行一次
+   		var hPrefix = getHiddenPrefix(),
+   			prefix = hPrefix.substring(0, hPrefix.length - 6);
+
+		document.addEventListener(prefix+'visibilitychange',function(){
+			console.log('I have paused: ',scene.paused);
+			//if(scene.paused){
+				//切换回来的时候才用delay的方式防止“暴走动画”。TODO不是最优的解决“暴走动画的bug”
+			//	setTimeout(function(){scene.pause();},50);
+			//}else{
+				scene.pause();
+			//}
+			
+		});
+   		
+   	}
+
+})();
+
+/******************************		Obj 对象继承类	************************************/
+;(function(){
+	alloyge.Obj = function(){
+		this.height = 0;
+		this.width = 0;
+		this.x = 0;			    //这个x,y是骨骼的偏移位置（具体实现在bone的updateDisplay的时候具体赋值）
+		this.y = 0;			
+		this.scaleX = 1;
+		this.scaleY = 1;
+		this.alpha = 1;
+		this.originX = 0;		//这里是位图旋转中心，就是决定关节joint的位置	
+		this.originY = 0;		//如果为0,0就是左上角为旋转中心
+		this.rotation = 0;
+		this.visible = true;	
+		this.size = 1; 			//骨骼按比例渲染
+
+
+		this.scene = null;
+		this.parent = null;
+	}
+
+	var ptt = alloyge.Obj.prototype;
+	//具体的render函数，由具体实现类去实现
+	ptt.render = function(){}; 
+
+	//私有方法 ,子类继承后，重写render类即可。_render方法有游戏循环调用
+	ptt._render = function(context) {
+		if(this.visible && this.alpha > 0){
+			context.save();
+			
+			this._transform(context); //根据自身的参数映射到ctx中去
+			
+			this.render(context);
+			context.restore();
+		}  
+	};
+
+	ptt._transform = function(context) {
+
+		context.translate(this.x*this.size, this.y*this.size); 
+		if(this.size !== 1 ){ //整体上缩放
+			context.scale(this.size, this.size); 
+		}
+		if(this.rotation % 360 > 0){
+			context.rotate(this.rotation % 360 / 180 * Math.PI);
+		}
+		if(this.scaleX != 1 || this.scaleY != 1) {
+			context.scale(this.scaleX, this.scaleY);
+		}
+		
+		context.translate(-this.originX, -this.originY);
+		
+		context.globalAlpha *= this.alpha;	
+	};
+
+})();
+
+
+/******************************		Display		**************************************/
+(function() {
+
+
+	/**
+	* Display 渲染类
+	* 具体有两种渲染方式：矢量渲染和图片渲染
+	* x,y是骨骼的偏移位置，具体的由Armature类的x,y决定。
+	*/
+	alloyge.Display = function(image, frame) {
+		alloyge.Obj.call(this);
+		//x,y变量都没有赋值，按照默认的为0，因为是因为具体绘画位置xy是由bone的_render确定位置，
+		this.image = image;
+		this.frame = alloyge.type.isArray(frame) ? frame : [0, 0, image.width, image.height];  //注意位图资源先加载
+
+		this.width = this.frame[2];
+		this.height = this.frame[3];
+
+		this.originX = -this.frame[4] || 0;  //origin参数在_render方法里面需要
+		this.originY = -this.frame[5] || 0;  
+
+		this.isVector = false;
+	}; 
+
+	alloyge.inherit(alloyge.Display, alloyge.Obj);
+	var ptt = alloyge.Display.prototype;
+
+	//注意是先执行_render
+	ptt.render = function(context) {
+		//  矢量的渲染实现
+		if(this.isVector){
+			context.strokeStyle="#aaa";
+			context.strokeRect(0,0,this.width,this.height);
+			//context.fillStyle="#fff";
+			//context.fillRect(0,0,this.width,this.height);
+		}else{
+			//img,sx,sy,swidth,sheight,x,y,width,height
+			//img; 裁切的xy，裁切的w,h  ; 在canvas上绘图的xy,在绘制的w,h
+			context.drawImage(this.image, this.frame[0], this.frame[1], this.frame[2], this.frame[3], 0, 0, this.width, this.height);
+		}
+	}
+
+})();
+
+/******************************		Scene		**************************************/
+;(function(){
+	alloyge.Scene = function(context){
+		this.context = context;
+		this.canvas = context.canvas;
+
+		this.children = [];
+
+		this.cb = null;   //函数的额外回调函数
+
+		this.paused = false;
+		this.fps = 60;
+		this.avgFPS = 0;  //实际运行的每秒的fps
+		this.intervalID = null;
+	};
+
+	var ptt = alloyge.Scene.prototype;
+
+	ptt.addObj = function(obj){
+		obj.scene = this;
+		this.children.push(obj);
+	};
+	ptt.removeObj = function(obj){
+		var index = this.children.indexOf(obj);
+		if(index > 0 || index < this.children.length){
+			this.children.splice(index,1);
+		}
+	}
+
+	ptt.setFPS = function(fps){
+		this.fps = fps;
+	};
+	ptt.getFPS = function(){
+		return this.fps;
+	}
+
+	ptt.start = function(cb){
+		this.cb = alloyge.type.isFunction(cb) ? cb : null;
+		requestAnimationFrame(this.loop.call(this));
+
+		//alloyge.addGobalEvenHandler(this); //引擎的一些全局事件处理
+	}
+
+	ptt.pause = function(value){
+		if(value == undefined){
+			this.paused = !this.paused;
+		}else{
+			this.paused = value;
+		}
+	}
+
+	ptt.loop = function(){
+
+		var lastTime = window.mozAnimationStartTime || Date.now(),
+			//都是用于计算平均fps
+			frameCountPerSecond = 0,  //计算每秒实际绘制的次数 
+       		preCountTime = lastTime;
+
+		var	_this = this;
+
+		//这玩意就用来控制fps的
+		var sumDuration = 0,  //实际的时间间隔和
+			sumInterval = 0,  //期望的时间间隔和
+			frameDrawCount = 1; //实际的绘画次数而不是进入loop的次数
+
+		return function(){
+
+			var now = Date.now(),
+				duration = now - lastTime,   //这是实际的时间间隔
+				interval = 1000 / _this.fps;  //这是期望的时间间隔
+
+			frameCountPerSecond++;		//这里主循环没loop一次就++记录一次
+
+			//以一秒为一个周期对一些参数进击计算和更新
+			if(now - preCountTime > 1000){
+
+                _this.avgFPS = frameCountPerSecond; //平均fps
+                frameCountPerSecond = 0;  //清0后重新计算
+                preCountTime = now;       //再次记录每秒fps的起始记录时间
+
+                if(alloyge.monitorDom){
+                	alloyge.monitorDom.innerHTML = 'FPS:' + _this.avgFPS;
+                }
+                //console.log('avgFPS:',_this.avgFPS,' drawCount:',frameDrawCount);
+
+                //这里每一秒就会对sumTime清零，虽然这样不能百分百控制实际fps绘制，但权衡得不错了
+                sumDuration = 0;  
+                sumInterval = 0;
+                frameDrawCount = 1;
+            }
+
+			//检查停止循环的条件
+			if (!_this.paused ) {
+
+				/* TODO 下面的渲染计算其实可以优化到具体每个子类里面，也可以为每个子类设置fps，自己渲染计算
+				*  这样一些场景不需要这么高的重绘率，会给整个游戏提高性能，这个有待优化
+				*/
+				sumDuration += duration;
+	            sumInterval = interval * frameDrawCount;
+	            if (_this.fps == 60 || sumDuration >= sumInterval) {
+
+	                /************		所以这里是逻辑计算更新			**************/
+					if(_this.cb != null) _this.cb(duration); //调用主程序的callback
+
+					for (var i = 0, len = _this.children.length; i < len; i++) {
+						_this.children[i].update(duration);
+					}
+						
+					/************		所以这里是把更新计算的内容绘画			**************/
+					_this.render(this.context);
+
+
+	                frameDrawCount++; //更新实际绘画次数
+	            };
+			}
+
+			lastTime = now;  //暂停了也要记录lastTime
+			requestAnimationFrame(arguments.callee);
+		}
+		
+	};
+
+
+	ptt.render = function(context,rect){
+		if (!context) context = this.context;
+		if(rect){
+			this.clear(rect.x,rect.y, rect.width, rect.height)
+		}else{
+			this.clear();
+		}
+		
+		//把Scene中的Obj都render
+		for (var i = 0, len = this.children.length; i < len; i++) {
+			this.children[i].render(context);
+		}
+	}
+
+	ptt.clear = function(x, y, width, height) {
+		if(arguments.length >= 4){
+			 this.context.clearRect(x, y, width, height);
+		}else{
+			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
+		}
+	};
+})();
+
+
+})();
+
+
+
+/**
 * alloysk   HTML5骨骼动画引擎
 * @author   bizaitan
-* @version  0.35 hack 版
+* @version  0.4
 *
 */
 
@@ -21,18 +397,10 @@ alloysk.textureDatas = {};
 alloysk.boneDatas = {};
 alloysk.animationDatas = {};
 
+
 //输出格式结构优化，减少处理逻辑
 alloysk.addTextureData = function(data){
-	// for(var name in data){
-	// 	var textureDatas = data[name];  //is Array
-	// 	var obj = {};
-	// 	for(var i = 0; i<textureDatas.length; i++){
-	// 		obj[textureDatas[i].name] =  textureDatas[i]
-	// 	}
-	// 	alloysk.textureDatas[name] = obj;
-	// }
 	alloysk.textureDatas = data;
-	//console.log('textureDatas',alloysk.textureDatas);
 };
 //编辑器输出格式结构优化，减少处理逻辑
 alloysk.addBoneData = function(data){
@@ -43,7 +411,7 @@ alloysk.addAnimationData = function(data){
 	alloysk.animationDatas = data;
 }
 
-//v0.3版数据
+//旧版编辑器输出数据格式
 alloysk.addSkeletonData = function(data){
 	//console.log('data',data);
 	for(var name in data){
@@ -69,20 +437,31 @@ alloysk.addSkeletonData = function(data){
 				var boneAniData = animationDatas[j][boneName];
 
 				if(boneName == 'frame' || boneName == 'name'){
-					_aniObj[boneName] = boneAniData;
+					_aniObj[boneName] = boneAniData;  //保持一样的数据
 				}else{
 					
 					if(typeof boneAniData.length == 'undefined'){
 						node = new alloysk.Node();
 						node.initValue(boneAniData);
-						_aniObj[boneName] = [node];    //注意这里如果只有一帧也用数组包装起来
+						_aniObj[boneName] = {
+							'scale' : boneAniData.scale,
+							'delay' : boneAniData.delay,
+							'nodeList' : [node]   //注意这里如果只有一帧也用数组包装起来
+						}
+						
 					}else{
+						var nodeArray = [];
 						for(var k =0; k<boneAniData.length; k++){
 							node = new alloysk.Node();
 							node.initValue(boneAniData[k]);
-							animationDatas[j][boneName][k] = node;
+							nodeArray[k] = node;
 						}
-						_aniObj[boneName] = animationDatas[j][boneName];
+						_aniObj[boneName] = {
+							'scale' : boneAniData[0].scale,
+							'delay' : boneAniData[0].delay,
+							'nodeList' : nodeArray   //注意这里如果只有一帧也用数组包装起来
+						}
+							
 					}
 
 				}
@@ -97,7 +476,7 @@ alloysk.addSkeletonData = function(data){
 	//console.log('animationDatas',alloysk.animationDatas);
 };
 
-//兼容龙骨Flash编辑器输出的数据
+//兼容龙骨Flash编辑器输出的数据(先把数据转为旧数据再用addSkeletonData方法转换新数据)
 alloysk.addDragonBoneData = function(data){
 	var outputObj = {};
 	for(var i = 0; i<data.armature.length; i++){
@@ -130,6 +509,8 @@ alloysk.addDragonBoneData = function(data){
 			for(var m = 0; m< anim.timeline.length; m++){
 				var timeline = anim.timeline[m];
 				var new_oneBoneAnimFrames = [];
+				var delay = timeline.offset;  //TODO 龙骨编辑器的delay参数实现出现断骨的bug
+
 				for(var n = 0; n<timeline.frame.length; n++){
 					var frame = timeline.frame[n];
 					var obj = {
@@ -141,25 +522,9 @@ alloysk.addDragonBoneData = function(data){
 						'frame' : frame.duration,
 						'rotation' : frame.transform.skX  //skX 和skY一样
 					}
-					// //hack
-					// if( (anim.name=='simpleHit' || anim.name=='secondHit') &&
-					//     (timeline.name=='handRight' || timeline.name=='armRight')){
-					// 	if(obj.rotation<0){
-					// 	 	obj.rotation = 360+obj.rotation*1;
-					// 	}
-					// }
-
-					// if(anim.name == 'jump_kick' && timeline.name == 'armRight'){
-					// 	if(obj.rotation<0){
-					// 		obj.rotation = 360+obj.rotation*1;
-					// 	}
-					// }
-					// if(anim.name == 'roll' && timeline.name == 'bodyUp'){
-					// 	if(obj.rotation>0){
-					// 		obj.rotation = -360+obj.rotation*1;
-					// 	}
-					// }
-					
+					//这里是转换为旧的格式，旧格式delay是在第一个关键帧obj上赋值delay的
+					if(n == 0 && delay !== 0) 
+						obj.delay = delay;   
 
 					new_oneBoneAnimFrames.push(obj);
 				}
@@ -190,23 +555,18 @@ alloysk.addDragonBoneData = function(data){
 
 /**************  Node 基础节点类  *****************/
 ;(function(){
-	//只带有渲染属性
+	//只带有渲染变量
 	alloysk.Node = function(x,y,rotation){
-		/**  渲染属性 **/
+		/**  渲染变量 **/
 		this.x = x || 0;
 		this.y = y || 0;
 		this.rotation = rotation || 0;
+		this.offR = 0;  //是否旋转过一圈 ，所以真实是角度应该是rotation+360*offR
 
-		
 		this.scaleX = 1;
 		this.scaleY = 1;
 		this.alpha = 1;
 		this.frame = 1;
-		this.offR = 0;
-
-		//TODO delay初始赋值现在放这里了
-		this.delay = 0;
-		this.scale = 1; //这个是控制某个骨骼相对于整体的帧数比例(只有在一个地方有作用)
 	}
 
 	alloysk.Node.prototype.initValue = function(data){
@@ -220,9 +580,6 @@ alloysk.addDragonBoneData = function(data){
 		this.alpha = data.alpha || 1;
 		this.frame = data.frame || 1;
 		this.offR = data.offR || 0;
-	
-		this.delay = data.delay || 0;
-		this.scale = data.scale || 1;
 	}
 
 })();
@@ -232,11 +589,11 @@ alloysk.addDragonBoneData = function(data){
 ;(function(){
 
 	alloysk.TweenNode = function(x, y, rotation){
-		/**  渲染属性 **/
+		/**  渲染变量 **/
 		alloysk.Node.call(this,x,y,rotation);
 
-		/**  _sXX起始属性  _dXX差值属性 **/
-		//要说明的是这些_sXX,_dXX都是用于：根据currentPrencent调用tweento来更新
+		/**  _sXX起始变量  _dXX差值变量 **/
+		//_sXX,_dXX都是用于，根据currentPrencent调用tweento来更新
 
 		this._sR = 0;   //from节点的rotation
 		this._sX = 0;	//from节点的x
@@ -258,7 +615,7 @@ alloysk.addDragonBoneData = function(data){
 
 	/**
 	* 差值计算这个tweenNode的_sR,_sX等差值变量
-	* from,to 可以是FrameNode类也可以是TweenNode类
+	* from,to 可以是Node类也可以是TweenNode类
 	* 但是如果是TweenNode类是不会用到里面_sR,_sX等的差值
 	*/
 	ptt.betweenValue = function(from, to){
@@ -289,7 +646,7 @@ alloysk.addDragonBoneData = function(data){
 	}
 	/**
 	* 差值计算这个tweenNode的rotation,x,y等渲染变量
-	* 视乎这个函数需要先betweenValue计算了差值后才能正确调用
+	* 注意：这个函数需要先执行betweenValue方法计算了差值后，才能正确调用
 	* 根据上面betweenValue的差值和要缓动的precent，计算这个TweenNode的实际x,y,rotation,scaleX,scaleY,alpha
 	*/
 	ptt.tweenTo = function(currentPercent){
@@ -318,7 +675,7 @@ alloysk.addDragonBoneData = function(data){
 
 /**************	 Tween 每个骨骼的缓动动画管理类  *****************/
 ;(function(){
-	//TODO 这个farmeTotals数据相通做的不好
+
 	alloysk.Tween = function(tweenNode){
 		this.tweenNode = tweenNode;
 
@@ -366,7 +723,7 @@ alloysk.addDragonBoneData = function(data){
 				/***  这里过渡动画执行结束后，根据loopTpye切换参数更新currentPercen t***/
 				this.hasTransition = false;
 
-				//静态显示
+				//静态显示  TODO 输出数据上没有输出静态显示的数据，待优化
 				if(this.loopTpye == -1){
 					this.currentPrecent = 1;
 					this.isComplete = true;   //静态显示设置了isComplete，之后的update都不用做逻辑更新了
@@ -409,15 +766,11 @@ alloysk.addDragonBoneData = function(data){
 		this.tweenNode.tweenTo(this.currentPercent);
 	};
 
-
-	//果然计算currentPercent才是核心的所在，专门为了update currentPercent
 	ptt.updateCurrentPercent = function(){
 		//playedKeyFrames  相对于总关键帧和，运行到某个的当前帧数 
 		var playedKeyFrames = this.keyFrametotal * this.currentPercent;
 		/**
-		* 这个if体内是根据某个bone的动作的数组中的obj(原始数据)切换关键帧来更新node的差值
-		* 例如我们看attack这个动画的leg骨骼动画数据,attack动画共30帧关键帧但，但真实的关键帧obj才4个(每个关键帧obj分别为7,5,8,10)
-		* 而这个if体内做的就是在这些关键帧obj切换的时候更新node差值
+		* 关键帧obj切换的时候更新node差值
 		*/
 		if(playedKeyFrames <= this.listEndFrame-this.betweenFrame || playedKeyFrames > this.listEndFrame){
 			this.listEndFrame = 0;
@@ -440,10 +793,7 @@ alloysk.addDragonBoneData = function(data){
 			this.tweenNode.betweenValue(fromNode, toNode);
 		}
 		
-		//这里我们换算currentPrecent，原来的currentPrecent是在总帧数上面算了，现在我们知道了关键帧obj过度动画后，这里
-		//其实就是换算当前帧在某个关键帧obj的百分比
-		//例如关键帧obj为3个{7}{5}{10} 当前帧playedKeyFrames是11，那么画图可知道，我们是去到了第二个关键帧obj{5}，要换算的话
-		//(11-7)/5 = 4/5 = 新的currentprecent，下面公式就是一个道理
+		//这里我们换算currentPrecent，原来的currentPrecent是在总帧数上面，换算当前帧在某个关键帧obj的百分比
 		this.currentPercent = 1 - (this.listEndFrame - playedKeyFrames) / this.betweenFrame;
 		if(this.ease){
 			this.currentPercent = 0.5 * (1 - Math.cos(this.currentPercent * PI));
@@ -456,28 +806,29 @@ alloysk.addDragonBoneData = function(data){
 
 /**************  Bone 骨骼类           *****************/
 ;(function(){
-	alloysk.Bone = function(roleName,boneName,bitmap){
-		this.parent = null;   //继承关系的父亲，一般都是armature类
-		this._parent = null;  //骨骼上的父子关系
+	alloysk.Bone = function(roleName,boneName,display){
+		this.body = null;  		//继承关系的父亲，一般都是armature类
+		this._parent = null;  	//骨骼上的父子关系
 		this.name = boneName;
-		this.bitmap = bitmap;
+		this.display = display;
 		this.tweenNode = new alloysk.TweenNode();
 
 		var boneData = alloysk.boneDatas[roleName][boneName] || {};
 
-		//TODO 下面这些好像都跟骨骼连接有关系，现在就先放着，最后没用就删掉
+		//TODO 骨骼的绑定位置（没有选择角度）
 		this._lockX = boneData.x || 0;
 		this._lockY = boneData.y || 0;
-		this._lockR = 0;
+		this._lockZ = boneData.z || 0;  //TODO目前还没有实现z排序的功能
+
+		//_parent父骨骼的_transform属性
 		this._parentX = 0;
 		this._parentY = 0;
 		this._parentR = 0;
 
-		//等update的时候再赋值
+		//根据update的时候赋值
 		this._transformX = 0;		//要偏移的x
 		this._transformY = 0;		//要偏移的y
-		this._Z = boneData.z || 0;  //我自己加的,目前还没有实现z排序的功能
-		
+
 	}
 
 	var ptt = alloysk.Bone.prototype;
@@ -494,16 +845,17 @@ alloysk.addDragonBoneData = function(data){
 		return this._transformY + this._parentY;
 	}
 	ptt.getGlobalR = function(){
-		return this.tweenNode.rotation + this._parentR + this._lockR;
+		return this.tweenNode.rotation + this._parentR;
 	}
 
-	//核心update顺序：
-	//1.tweenNode的update,  2.bone的update,  3. bone.bitmap的update
-	//目前tweenNode的update统一交给了Tween管理，所以这里只做2,3
+	//update顺序：
+	//1.tweenNode的update  (统一交给了Tween管理,bone的update都是在tweenupdate之后)
+	//2.bone的update  (tweennode在上一步得到赋值)
+	//3 bone.display的update
 	ptt.update = function(){
 		//bone的自身update
 		if(this._parent){
-			//更新parent属性，注意是调用_parent的方法，不是自身方法
+			//更新parent属性
 			this._parentX = this._parent.getGlobalX();	
 			this._parentY = this._parent.getGlobalY();
 			this._parentR = this._parent.getGlobalR();
@@ -523,36 +875,36 @@ alloysk.addDragonBoneData = function(data){
 			this._transformY = this.tweenNode.y;
 		}
 
-		//bitmap的update
+		//display的update
 		this.updateDisplay();
 	}
 
 	ptt.updateDisplay = function(){
-		//也存在没有bitmap渲染层的bone
-		if(this.bitmap){
-			this.bitmap.x = this._transformX + this._parentX;
-			this.bitmap.y = this._transformY + this._parentY;
-			var rotation = this.tweenNode.rotation + this._parentR + this._lockR; //i delete node
+		//也存在没有display渲染层的bone
+		if(this.display){
+			this.display.x = this._transformX + this._parentX;
+			this.display.y = this._transformY + this._parentY;
+			var rotation = this.tweenNode.rotation + this._parentR; //i delete node
 			rotation%=360;
 			if(rotation<0){
 				rotation+=360;
 			}
-			this.bitmap.rotation = rotation;
+			this.display.rotation = rotation;
 			
 			if(isNaN(this.tweenNode.scaleX)){
 			}else{
-				this.bitmap.scaleX = this.tweenNode.scaleX;
+				this.display.scaleX = this.tweenNode.scaleX;
 			}
 			if(isNaN(this.tweenNode.scaleY)){
 			}else{
-				this.bitmap.scaleY = this.tweenNode.scaleY;
+				this.display.scaleY = this.tweenNode.scaleY;
 			}
 			if(!isNaN(this.tweenNode.alpha)){
 				if(this.tweenNode.alpha){
-					this.bitmap.visible = true;
-					this.bitmap.alpha = this.tweenNode.alpha;
+					this.display.visible = true;
+					this.display.alpha = this.tweenNode.alpha;
 				}else{
-					this.bitmap.visible = false;
+					this.display.visible = false;
 				}
 			}
 		}
@@ -562,7 +914,7 @@ alloysk.addDragonBoneData = function(data){
 
 
 
-/**************  Armature 部件类       *****************/
+/**************  Armature 整体类       *****************/
 
 ;(function(){	
 	alloysk.Armature = function(roleName,img){
@@ -573,27 +925,29 @@ alloysk.addDragonBoneData = function(data){
 
 		this.boneList = [];		   //两种不同的结构对bone的存储
 		this.boneObjs = {};
-		this.tweenObjs = {};       //转载的是骨骼的tween类
+		this.tweenObjs = {};       //装的是骨骼的tween类
 		this.roleName = roleName;  //记录这个armature的name
 
-		this.fps = 60;             //一秒重绘多少次画面，只影响性能(速度？) TODO 目前fps没有应用到具体某个armature 
-		this.stage = null;         //TODO 考虑是否可以去掉 表示这个armature被那个stage add，最重要的是使到两者数据打通
-
+		this.fps = 60;             //一秒重绘多少次画面，只影响性能(速度？) TODO 目前fps没有应用到具体某个armature,后记统一性能优化处理 
+		this.scene = null;         //表示这个armature被那个scene add，最重要的是使到两者数据打通
+		this.size = 1;			   //按输出数据的比例播放
 
 		var boneDatas = alloysk.boneDatas[roleName];
 		var textureDatas = alloysk.textureDatas[roleName];
 
 		for(var boneName in boneDatas){
 			var boneTd =  textureDatas[boneName];
-			//TODO 是否也把这个bitmap用list装起来放到armature的变量里面
-			var bitmap = new alloyge.Bitmap(img,[boneTd.x,boneTd.y,boneTd.width,boneTd.height,boneTd.originX,boneTd.originY]);
+			//TODO 是否也把这个display用list装起来放到armature的变量里面
+			//TODO Display类优化
+			var display = new alloyge.Display(img,[boneTd.x,boneTd.y,boneTd.width,boneTd.height,boneTd.originX,boneTd.originY]);
 
-			var bone = new alloysk.Bone(roleName,boneName,bitmap);
-			bone.parent = this;  //bone的parent在外面赋值
-
-			this.tweenObjs[boneName] = new alloysk.Tween(bone.tweenNode); //这里先赋值上一个空的tween类
+			//这里没有把bone的父子关系逻辑放到构造函数里面，一是由于输出数据的独立性，二是bone可以不依赖关系就可以new出来
+			var bone = new alloysk.Bone(roleName,boneName,display);
+			bone.body = this;  //bone的parent在外面赋值
 			this.boneList.push(bone);
 			this.boneObjs[boneName] = bone;
+
+			this.tweenObjs[boneName] = new alloysk.Tween(bone.tweenNode); //这里先赋值上一个空的tween类
 		}
 
 		//建立bone的关系
@@ -618,6 +972,29 @@ alloysk.addDragonBoneData = function(data){
 	ptt.setEaseType = function(type){
 		for(var boneName in this.tweenObjs){
 			this.tweenObjs[boneName].ease = type;
+		}
+	};
+	ptt.setSize = function(newSize){
+		for(var boneName in this.boneObjs){
+			this.boneObjs[boneName].display.size = newSize;
+		}
+	};
+	ptt.isVector = function(){
+		for(var boneName in this.boneObjs){
+			if(this.boneObjs[boneName].display.isVector == false){
+				return false
+			}
+		}
+		return true;
+	};
+	//不传值代表取反
+	ptt.setVector = function(isVector){
+		if(isVector == undefined){
+			this.setVector(! this.isVector());
+		}else{
+			for(var boneName in this.boneObjs){
+				this.boneObjs[boneName].display.isVector = isVector;
+			}
 		}
 	};
 	ptt.isComplete = function(){
@@ -658,7 +1035,7 @@ alloysk.addDragonBoneData = function(data){
 
 			boneData = boneDatas[boneName];
 			bone = boneObjs[boneName];
-			boneParent = boneObjs[boneData.parent];
+			boneParent = boneObjs[boneData._parent];
 			if(boneParent){
 				boneParent.addChild(bone);
 			}
@@ -672,15 +1049,12 @@ alloysk.addDragonBoneData = function(data){
 			/************      bone的tweenNode的update   ****************/
 			var bone = this.boneList[index];
 
-			//TODO 现在考虑技术currentPercent的位置
-			//因为有延迟动画的计算，他的currentPercent视乎需要重新计算，那样就要把计算放到每个骨骼里面去了
-			//但放到骨骼里面去又会缺少一些全局参数，例如totoalFrame。
-			//这是就要考试视乎要想skeleton.js那样建立Tween类管理上面的所有
-
+			//why 不把tween类的更新放到bone类中去？
+			//因为有延迟动画的计算，tween类的currentPercent需要重新计算，当把计算currentPercent放到每个骨骼里面去了
+			//又会缺少一些全局参数，例如totoalFrame。所以抽离tween类为Armature类统一管理，计算结果自然到bone的tweenNode中
 			this.tweenObjs[bone.name].update();
-			bone.update(this.currentPercent);							
+			bone.update();							
 		}
-
 	};
 
 	ptt.render = function(context) {
@@ -690,27 +1064,21 @@ alloysk.addDragonBoneData = function(data){
 			//this.transform(context);
 			context.translate(this.x,this.y);
 
-			//TODO 是否考虑一下把bone的bitmap类都聚在一个集合里面，放到armature的全局变量sprite里面去统一管理
 			for(var i =0; i< this.boneList.length; i++){
-				this.boneList[i].bitmap._render(context);
+				this.boneList[i].display._render(context);
 			}
-
 			context.restore();
 		}  
 	};
 
 	/**
-	* TODO 新的Animation是否要接管这个函数
-	* 本质上这里实现了bone的某个动画tweenNode的差值
-	* TODO 这里的fromNode设为空node，并且bone带有一个node和tweenNode，是实现动作过度的关键
-	* @param 过度动画帧  这个过度动画是指其它动画切换到这个动画的过度动画
+	* 本质上这里实现了bone的某个动画tweenNode的差值(tween类赋值)
 	*/
 	ptt.playTo = function(aniName,totalFrames,transitionFrames,isloop){
 		var aniData = alloysk.animationDatas[this.roleName][aniName],
 			fromNode = new alloysk.TweenNode(),
 			toNode  = new alloysk.TweenNode();
 
-		//TODO 这里简化了所有流程，假定只有两帧的情况
 		for(var boneName in aniData){
 			if(boneName != 'name' && boneName != 'frame'){
 
@@ -719,10 +1087,10 @@ alloysk.addDragonBoneData = function(data){
 
 				//tween具体赋值。
 				var tween = this.tweenObjs[boneName];
-				tween.nodeList = boneAniData;
-				tween.delay = boneAniData[0].delay || 0;
+				tween.nodeList = boneAniData.nodeList;
+				tween.delay = boneAniData.delay || 0;
 				tween.keyFrametotal = aniData['frame'];
-				tween.totalFrames = totalFrames * boneAniData[0].scale;
+				tween.totalFrames = totalFrames * (boneAniData.scale || 1);
 				tween.transitionFrames = transitionFrames;
 				tween.hasTransition = true;    //重新更新
 				tween.isComplete = tween.isPause = false;  //刷新
@@ -733,17 +1101,16 @@ alloysk.addDragonBoneData = function(data){
 				//fromNode使用上一次的tweenNode的渲染值作为起始值，如果上一次没有，则是空值开始
 				fromNode.initValue(tween.tweenNode);
 
-				if(boneAniData.length > 1){
-					//如果isloop为false，则是动态不循环动画(默认是同台循环动画)
+				if(boneAniData.nodeList.length > 1){
+					//如果isloop为false，则是动态不循环动画(默认是动态循环动画)
 					if(!isloop){
 						tween.loopTpye = -3;
 						tween.keyFrametotal -= 1;
 					}else{
-						tween.loopTpye = -2;   //这里如果在动画切换的时候上一次是-3，切换回-2的时候，你这里不赋值就错了。
+						tween.loopTpye = -2;   //这里如果在动画切换的时候上一次是-3，切换回-2的时候，你这里不赋值就出错了。
 					}
 					
-					//TODO 源码上这里还有个条件是并且isloop为true,个人认为动态不循环里的过渡动画也需要delay
-					if(isloop && tween.delay != 0){
+					if(tween.delay !== 0){
 
 						//这个delay的计算跟Tween类的updateCurrentPercent方法的逻辑是一模一样的，TODO 看以后可以优化为一个函数不？
 						var playedKeyFrames = tween.keyFrametotal * (1 - tween.delay);
@@ -756,7 +1123,6 @@ alloysk.addDragonBoneData = function(data){
 							betweenFrame = tween.nodeList[toIndex].frame;
 							listEndFrame += betweenFrame;
 							fromIndex = toIndex;
-							//当运动到最后一个关键帧obj的时候，循环动画的时候，我们就使用from为最后一个关键帧obj，to为第一个关键帧obj
 							if(++toIndex >= tween.nodeList.length){
 								toIndex = 0;
 							}
@@ -769,12 +1135,12 @@ alloysk.addDragonBoneData = function(data){
 						toNode.tweenTo(currentPercent);
 
 					}else {
-						toNode.initValue(aniData[boneName][0]);
+						toNode.initValue(aniData[boneName].nodeList[0]);
 					}
 
 				}else {
 					//静态显示
-					toNode.initValue(aniData[boneName][0]); //(数据做了处理，静态显示的也装在只有一个数据的数组里面)
+					toNode.initValue(aniData[boneName].nodeList[0]); //(数据做了处理，静态显示的也装在只有一个数据的数组里面)
 					tween.loopTpye = -1;
 				}
 

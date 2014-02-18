@@ -15,7 +15,7 @@
 </body>
 
 <!-- 注意这里的js加载顺序，先加载游戏引擎，再加载资源js-->
-<script src='./js/alloystick_v0.35h.js'></script>
+<script src='./js/alloystick_v0.4.js'></script>
 <script src='./data/xx_resource.js'></script>
 <script>
 var demoApp = function(){
@@ -23,7 +23,7 @@ var demoApp = function(){
 	var canvas = document.getElementById('canvas'),
 		textureImg = document.getElementById('xiaoxiaoImg');
 
-	var stage = new alloyge.Stage(canvas.getContext('2d'));
+	var scene = new alloyge.Scene(canvas.getContext('2d'));
 	var	player = new alloysk.Armature('xiaoxiao',textureImg);
 
 	// animationName ,totalFrames,transitionFrame,isLoop
@@ -31,12 +31,12 @@ var demoApp = function(){
 	player.setPos(300,300);	
 	player.setEaseType(false);
 
-	stage.addObj(player);
+	scene.addObj(player);
 	// 启动FPS监听器 (辅助功能 非必须)
-	alloyge.monitorFPS(stage);  
+	alloyge.monitorFPS(scene);  
 
 	// 开始场景里的动画，并且可以传入callback循环调用
-	stage.start();
+	scene.start();
 
 }
 
