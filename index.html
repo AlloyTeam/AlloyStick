@@ -1,124 +1,233 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<title>AlloyStick HTML5骨骼动画引擎 - AlloyTeam</title>
+<meta charset="UTF-8">
+<title>AlloyStic HTML5骨骼动画</title>
 <link rel="stylesheet" href="./css/main.css">
 <link rel="stylesheet" href="./css/prism.css">
+<link rel="stylesheet" href="./css/font-awesome.min.css">
 </head>
 <body>
 	<div class="page">
-		<section class="banner"></section>
 		<header>
-			<img class="logo_img" src="img/alloystick_logo.png" />
+			<img class="logo_img" id="logoImg" src="img/alloystick_logo.png" />
 			<div class="logo_info">Skeleton animation for HTML5</div>
 			<div class="logo_text">AlloyStick</div>
 			<div class="logo_extra">l</div>
 			<div class="logo_footer">by AlloyTeam</div>
-			
 
 			<nav>
-				<div class="navlink">特性介绍 <i class="link_bg"></i></div>
-				<div class="navlink">Demo <i class="link_bg"></i></div>
-				<div class="navlink">使用教程 <i class="link_bg"></i></div>
-				<div class="navlink">下载 <i class="link_bg"></i></div>
-				<div class="navlink">关于我们 <i class="link_bg"></i></div>	
+				<a class="navlink" href="#section-feature">介绍 <i class="icon-leaf"></i> <i class="link_bg"></i></a>
+				<a class="navlink" href="#section-demo">Demo <i class="icon-th-large"></i><i class="link_bg"></i></a>
+				<a class="navlink" href="#section-tutorial">使用教程 <i class="icon-book"> <i class="link_bg"></i></i></a>
+				<a class="navlink" href="#section-down">下载  <i class="icon-download-alt"></i> <i class="link_bg"></i></a>
+				<a class="navlink" >关于我们 <i class="icon-envelope"></i><i class="link_bg"></i></a>	
 			</nav>
+
+			<canvas id="canvas_logo" width="120px" height="120px">抱歉，你的浏览器不支持canvas，建议你使用Chrome浏览器，杜绝360浏览器。</canvas>
+
 		</header>
 
-		<section id="demo">
-			<canvas id="canvas" width="800px" height="500px">抱歉，你的浏览器不支持canvas，建议你使用Chrome浏览器，杜绝360浏览器。</canvas>
-			<img src="./data/texture.png" id="xiaoxiaoImg" style="display:none;">	
-
-			<div class="wording">
-				<div id="step1" class="step">
-					<p>你只看到我动画生硬骨骼会<span>断裂</span>
-					<p style="left:200px;">却没看到我几帧动画还能<span>自动补间</span>衔接动作</p>
-				</div>
+		<section class="banner">
+			<div class="intro">
+				<p>AlloyStick: 
+					<span>js动画库<i class="icon-beta icon-my">beta</i></span> + 
+					<span>动画编辑器<i class="icon-working icon-my">working...</i></span></p>
+				<p>拖动骨骼组合角色，设置简单的动画关键帧，依靠强大的自动补间和骨骼关系，就可以制作出逼真生动的canvas骨骼动画。可以畅快的运行在你的PC、手机、平板等设备里</p>
 				
-				<div id="step2" class="step">
-					<p>你有你的态度，我有我的想法</p>
-				</div>
-				
-				<div id="step3" class="step">
-					<p>你嘲讽我的<span>完成度低</span>功能少idea差，我可怜你连动手做的<span style="color:#E05A26">勇气</span>都没有</p>
-				</div>
-				
-				<div id="step4" class="step">
-					<p>你可以轻视我不是<span>第一人</span>不是<span>先驱者</span></p>
-					<p style="left: 100px;font-size: 32px;top: -15px;">我会证明这是谁的时代</p>
-				</div>
-
-				<div id="step5" class="step">
-					<p>做动画注定是痛苦的旅行，路上总少不了轻蔑和<span>肥皂</span></p>
-					<p><span style="font-size: 35px;">蛋</span>,又怎样</p>
-				</div>
-				
-				<div id="step6" class="last_step">
-					<p>哪怕我居然情不自禁地去捡，也要展示我的<span>菊花</span><span>灿烂无比</span></p>
-					<p class="last_word">我是XX，我为AlloyStick代言</p>
-				</div>
-			</div>
-
-			<div class="combos">
-				<div id="combo1">
-					<i class="key_j"> J </i> + <i class="key_j">J</i> + <i class="key_k">K</i> + <i class="key_l">L</i>
-				</div>
-
-				<div id="combo2">
-					<i class="key_j"> J </i> + <i class="key_j">J</i> + <i class="key_k">K</i> + <i class="key_l">L</i> + <i class="key_n">N</i>
-				</div>
-
-				<div id="combo3">
-					<i class="key_o">O</i> + <i class="key_p">P</i> + <i class="key_n">N</i> 
-				</div>
-
-				<div id="combo4">
-					<i class="key_r">R</i>+<i class="key_o">O</i>+<i class="key_n">N</i>
-				</div>
-
-				<div id="combo5">
-					<i class="key_r">R</i>+ <i class="key_p">P</i> + <i class="key_l">L</i>
-				</div>
-			</div>
-		
-		</section>
-		
-		<div class="intro">
-				<h3>AlloyStick 介绍</h3>
-				<p>AlloyStick 是采用HTML5技术开发的一个骨骼动画引擎，可以用于HTML5动画开发、HTML5游戏开发；AlloyStick 主要由骨骼动画引擎和骨骼动画编辑器两部分组成，骨骼动画编辑器提供强大的骨骼动画编辑功能，通过设置动画关键帧，依靠强大的自动补间和骨骼关系，就可以制作出逼真、生动的Canvas骨骼动画，可以畅快的运行在PC、手机、平板等设备里。</p>
-			</div>
-
-		<section class="features">
-			<div class="feature">
-				<i class="feature_line"></i>
-				<ul>
-					<li>动作比Sprite动画更逼真、自然</li>
-					<li>拖动骨骼编辑动画</li>
-					<li>动作自动补间</li>
-					<li>减少设计师大量手工绘制工作</li>
-					<li>比Sprite动画位图资源少90%</li>
-				</ul>
-			</div>
-			<div class="feature">
-				<i class="feature_line"></i>
-				<ul>
-					<li>骨碌可编码控制</li>
-					<li>事件帧的加入，自由控制动画触发事件</li>
-					<li>角色换装或变换武器</li>
-					<li>骨碌动作可以复制，多个角色可共用一个动作数据</li>
-					<li>可结合物理引擎，扩展广泛</li>
-				</ul>
 				
 			</div>
-
-		
+			<div class="banner_logo">
+				<img src="./img/gandom00.png">
+			</div>
+			
 		</section>
 
-		
+		<section id="section-feature" class="section-feature">
+			<h3 class="section-title">特性介绍<i class="title-triangle"></i></h3>
+			<p>AlloyStick 是采用HTML5技术开发的一个骨骼动画引擎，可以用于HTML5动画开发、HTML5游戏开发；AlloyStick 主要由骨骼动画引擎和骨骼动画编辑器两部分组成，骨骼动画编辑器提供强大的骨骼动画编辑功能，通过设置动画关键帧，依靠强大的自动补间和骨骼关系，就可以制作出逼真、生动的Canvas骨骼动画，可以畅快的运行在PC、手机、平板等设备里。</p>
 
-		<section id="tutorial" class="tutorial">
-			<h3>快速上手</h3>
+			<div class="features">
+				<div class="feature">
+					<div class="feature-head">
+						可视化编辑动画 <span class="small">in Animation Editor</span><i class="icon-chevron-down"></i>
+					</div>
+					<ul class="feature-body">
+						<li><i class="icon-circle"></i>
+							<p>拖拽骨骼组合人物角色</p>
+							<p class="small">关节依附，自由摆动姿势</p></li>
+						<li><i class="icon-circle"></i>
+							<p>动作间智能自动补间</p>
+							<p class="small">动作切换的过渡动画自动完成</p></li>
+						<li><i class="icon-circle"></i>
+							<p>可绘制矢量图作为骨骼素材</p>
+							<p class="small">矢量输入矢量输出，并且图片素材可矢量输出模型</p></li>
+						<li><i class="icon-circle"></i>
+							<p>提供基础矢量素材库</p>
+							<p class="small">除了火柴人的基本素材，还提供额外素材设计</p></li>
+					</ul>
+				</div>
+				<i class="icon-my-arrow icon-resize-horizontal"></i>
+				<div class="feature">
+					<div class="feature-head">
+						灵活可控 <span class="small">in alloystick.js</span><i class="icon-chevron-down"></i>
+					</div>
+					<ul class="feature-body">
+						<li><i class="icon-circle"></i>
+							<p>动画时间可控</p>
+							<p class="small">慢动作，冰冻减速等效果可以轻松完成</p></li>
+						<li><i class="icon-circle"></i>
+							<p>骨骼可控</p>
+							<p class="small">轻松实现角色装备更换，甚至可对某骨骼做特殊控制或事件监听</p></li>
+						<li><i class="icon-circle"></i>
+							<p>事件监听</p>
+							<p class="small">骨骼事件帧，自由控制动画触发事件</p></li>
+						<li><i class="icon-circle"></i>
+							<p>动作数据继承</p>
+							<p class="small">多角色可共用一套动画数据</p></li>
+						<li><i class="icon-circle"></i>
+							<p>可结合物理引擎</p>
+							<p class="small">结合物理引擎，应用广泛</p></li>
+					</ul>
+				</div>
+			</div><!-- end of features -->
+		</section>
+
+		<!-- <section class="section-vs">
+			<h3 class="section-title">骨骼都动画优势<i class="title-triangle"></i></h3>
+			<div class="vs-block">
+				<div class="left-data">
+					
+				</div>
+				<div class="center-word">
+					
+				</div>
+				<div class="right-data">
+					
+				</div>
+			</div>
+		</section> -->
+
+		<section id="section-demo" class="section-demo">
+			<h3 class="section-title">Demo<i class="title-triangle"></i></h3>
+			
+			<div id="demo">
+				<canvas id="canvas" width="800px" height="550px">抱歉，你的浏览器不支持canvas，建议你使用Chrome浏览器，杜绝360浏览器。</canvas>
+				<img src="./data/texture.png" id="xiaoxiaoImg" style="display:none;">	
+
+				<div class="wording">
+					<div id="step1" class="step">
+						<p>你只看到我动画生硬骨骼会<span>断裂</span>
+						<p style="left:200px;">却没看到我几帧动画还能<span>自动补间</span>衔接动作</p>
+					</div>
+					
+					<div id="step2" class="step">
+						<p>你有你的态度，我有我的想法</p>
+					</div>
+					
+					<div id="step3" class="step">
+						<p>你嘲讽我的<span>完成度低</span>功能少idea差，我可怜你连动手做的<span style="color:#E05A26">勇气</span>都没有</p>
+					</div>
+					
+					<div id="step4" class="step">
+						<p>你可以轻视我不是<span>第一人</span>不是<span>先驱者</span></p>
+						<p style="left: 100px;font-size: 32px;top: -15px;">我会证明这是谁的时代</p>
+					</div>
+
+					<div id="step5" class="step">
+						<p>做动画注定是痛苦的旅行，路上总少不了轻蔑和<span>肥皂</span></p>
+						<p><span style="font-size: 35px;">蛋</span>,又怎样</p>
+					</div>
+					
+					<div id="step6" class="last_step">
+						<p>哪怕我居然情不自禁地去捡，也要展示我的<span>菊花</span><span>灿烂无比</span></p>
+						<p class="last_word">我是小小，我为AlloyStick代言</p>
+					</div>
+				</div>
+
+				<div class="combos">
+					<div id="combo1">
+						<i class="key_j"> J </i> + <i class="key_j">J</i> + <i class="key_k">K</i> + <i class="key_l">L</i>
+					</div>
+
+					<div id="combo2">
+						<i class="key_j"> J </i> + <i class="key_j">J</i> + <i class="key_k">K</i> + <i class="key_l">L</i> + <i class="key_n">N</i>
+					</div>
+
+					<div id="combo3">
+						<i class="key_o">O</i> + <i class="key_p">P</i> + <i class="key_n">N</i> 
+					</div>
+
+					<div id="combo4">
+						<i class="key_r">R</i>+<i class="key_o">O</i>+<i class="key_n">N</i>
+					</div>
+
+					<div id="combo5">
+						<i class="key_r">R</i>+ <i class="key_p">P</i> + <i class="key_l">L</i>
+					</div>
+				</div>
+
+				<!-- <div id="toggleBtn" class="toggle">
+                  <label class="toggle-radio"><i class="icon-my-circle"></i>ON</label>
+
+                  <label class="toggle-radio"><i class="icon-my-circle"></i>OFF</label>
+                </div> -->
+
+                <div id="toggleBtn" class="toggle">
+                  <label id="toggle_on" class="toggle-radio" for="toggleOption4">ON</label>
+                  <input type="radio" name="toggleOptions2" id="toggleOption3" value="option3">
+                  <label id="toggle_off" class="toggle-radio" for="toggleOption3">OFF</label>
+                  <input type="radio" name="toggleOptions2" id="toggleOption4" value="option4" checked="checked">
+                </div>
+
+			</div>
+
+			<div class="demo-operation">
+
+				<div class="keyboard">
+					<h2>Operation</h2>
+					<div class="key">J:前拳</div>
+					<div class="key">K:中拳</div>
+					<div class="key">L:踢</div>
+					<div class="key">R:跑步</div>
+					<div class="key">P:滚地板</div>
+					<div class="key">O:捡肥皂</div>
+					<div class="key">N:放松</div>
+					<div class="key">M:来吧！少年！</div>
+				</div>
+
+				<div class="sys_combos">
+					<h2>Combos</h2>
+					<div class="sys_combo">
+						<span class="name">
+							<i class="icon-legal"></i>古龙式拳法<i class="icon-right-triangle"></i></span>
+						<span class="combo">J+J+K + J+J+K + J+J+K...</span>
+					</div>
+					<div class="sys_combo">
+						<span class="name">
+							<i class="icon-legal"></i>翻滚侧踢<i class="icon-right-triangle"></i></span>
+						<span class="combo">R+P+L</span>
+					</div>
+
+					<div class="sys_combo">
+						<span class="name">
+							<i class="icon-legal"></i>我不断的翻滚，油腻的师姐在那里<i class="icon-right-triangle"></i></span>
+						<span class="combo">P+N + P+N ...</span>
+					</div>
+
+					<div class="sys_combo">
+						<span class="name">
+							<i class="icon-legal"></i>捡肥皂发现身后有杀机<i class="icon-right-triangle"></i></span>
+						<span class="combo">O+P+M</span>
+					</div>
+					
+				</div>
+			</div>
+			
+		</section>
+
+		<section id="section-tutorial" class="section-tutorial">
+			<h3 class="section-title">快速上手<i class="title-triangle"></i></h3>
 
 			<div class="tuto1">
 				<p>一个骨骼动画主要由3部分组成：骨骼数据、蒙皮数据、动画数据，有了这三部分数据，就可以由AlloyStick渲染出生动的骨骼动画了。这三部分数据当然不需要手动生成，只需要在编辑器中操作，即可自动生成。生成数据后，就可以向下面这样调用执行骨骼动画了：</p>
@@ -153,13 +262,13 @@
 &lt;/body&gt;
 
 &lt;!-- 注意这里的js加载顺序，先加载游戏引擎，再加载资源js--&gt;
-&lt;script src='./js/alloystick_v0.35h.js'&gt;&lt;/script&gt;
+&lt;script src='./js/alloystick_v0.4.js'&gt;&lt;/script&gt;
 &lt;script src='./data/xx_resource.js'&gt;&lt;/script&gt;
 &lt;script&gt;
 var demoApp = function(){
     var canvas = document.getElementById('canvas'),
         textureImg = document.getElementById('xiaoxiaoImg');
-    var stage = new alloyge.Stage(canvas.getContext('2d'));
+    var scene = new alloyge.Scene(canvas.getContext('2d'));
     var player = new alloysk.Armature('xiaoxiao',textureImg);
 
     // animationName ,totalFrames,transitionFrame,isLoop
@@ -167,11 +276,11 @@ var demoApp = function(){
     player.setPos(300,300); 
     player.setEaseType(false);
 
-    stage.addObj(player);
+    scene.addObj(player);
     // 启动FPS监听器 (辅助功能 非必须)
-    alloyge.monitorFPS(stage);
+    alloyge.monitorFPS(scene);
     // 开始场景里的动画，并且可以传入callback循环调用
-    stage.start();
+    scene.start();
 }
 window.onload = demoApp;
 &lt;/script&gt;
@@ -184,14 +293,15 @@ window.onload = demoApp;
 
 		</section>
 		
-		<section id="tutorial" class="tutorial">
-			<h3>骨骼动画编辑器</h3>
+		<section class="section-editor">
+			<h3>骨骼动画编辑器<i class="icon-my icon-working">working...</i></h3>
 			<div class="tuto1">
 				<p>要制作骨骼动画。只需在编辑器里绑定骨骼关系、配置骨骼蒙皮、设置简单的动画关键帧，依靠我们强大的自动补间和骨骼关系，就可以制作出生动的骨骼动画了，可惜的是，我们骨骼动画编辑器还在努力完善中T_T。。。敬请期待吧！</p>
 			</div>
+			<p><img src="./img/editor_working.jpg" width="800px"></p>
 		</section>
 
-		<section id="tutorial" class="tutorial">
+		<section id="section-down" class="download">
 			<h3>下载</h3>
 			<div class="tuto1">
 				<p>这么好的东西，在哪里下载呢？</p>
@@ -201,10 +311,7 @@ window.onload = demoApp;
 
 	
 
-	<footer>
-		<div class="copyright">Copyright &copy; <script>document.write(new Date().getFullYear());</script> <a href="http://www.AlloyTeam.com/" target="_blank">Tencent AlloyTeam</a>. All Rights Reserved.</div>
-
-	</footer>
+	<footer>© 2011-2014 <a target="_blank" href="http://www.alloyteam.com/">Tencent Alloyteam</a>. All Rights Reserved.</footer>
 
 	<!-- 注意这里的js加载顺序，先加载游戏引擎，再加载资源js-->
 	<script src='./js/alloystick_v0.4.js'></script>
@@ -212,6 +319,6 @@ window.onload = demoApp;
 
 	<script src="./js/demo.js"></script>
 	<script src="./js/prism.js"></script>
-	
+
 </body>
 </html>

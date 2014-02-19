@@ -1,31 +1,56 @@
 body{
-	margin: 0;
-	padding: 0;
-	color: #333;
-	font: 16px/2 Tahoma, 'Microsoft YaHei', sans-serif;
-	background: #F2F2F2;
+margin: 0;
+padding: 0;
+color: #DDDDDD;
+font: 16px/2 Tahoma, 'Microsoft YaHei', sans-serif;
+background: #424242;
 }
 
 a{
-	color: #2a6496;
+	color: #58A7EB;
 	text-decoration: none;
 }
 a:hover{
-	color: #58A7EB;
 	text-decoration: underline;
+}
+p{
+	text-indent: 2em;
+}
+.banner p,#demo p{
+	text-indent: 0;
 }
 h3{
 	color: #FFAA00;
 	font: 40px 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','Microsoft YaHei',sans-serif;
 
 }
-p{
-	text-indent: 2em;
+.section-title{
+	font-size: 26px;
+	color: black;
+	background: #F1C40F;
+	width: 450px;
+	margin: 60px 0 20px;
+	text-indent: 20px;
+	position: relative;
+
 }
+.section-title .title-triangle{
+	width: 0px;
+	height: 0px;
+	display: block;
+	border-style: solid;
+	border-width: 18px 40px;
+	border-color: transparent transparent #F1C40F #F1C40F;
+	position: absolute;
+	left: 100%;
+	top: 0;
+}
+
 header{
 	position: relative;
 	height: 200px;
 	line-height: 1.5;
+	overflow: hidden;/* 非常必须，会影响到下面dom的文本排版*/
 	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','Microsoft YaHei',sans-serif;
 }
 section{
@@ -55,6 +80,12 @@ footer{
 
 
 /************************************   demo block css *****************************************/
+#demo{
+	position: relative;
+	border-style: dashed;
+	border-color: white transparent;
+	box-shadow: 0px 5px 10px 5px rgba(29, 23, 23, 0.5);
+}
 .wording{
 	position: absolute;
 	left: 400px;
@@ -88,9 +119,10 @@ footer{
 	top: 100px;
 	left: 230px;
 	font-size: 35px;
+	width: 320px;
 }
 #step3{
-	left: -40px;
+	left: -50px;
 	top: 130px;
 }
 #step4{
@@ -158,6 +190,53 @@ footer{
 	box-shadow: 0 0 2px 1px #525252 !important;
 }
 
+.demo-operation{
+	overflow: hidden;
+	*zoom:1;
+}
+
+.keyboard{
+	float: left;
+	width: 500px;
+	display: inline-block;
+}
+
+.keyboard .key{
+display: inline-block;
+width: 200px;
+background: #292929;
+color: #808080;
+border: 1px solid #298B60;
+border-radius: 5px;
+text-indent: 20px;
+margin: 0 15px 20px 0;
+}
+
+.sys_combos{
+	float: left;
+}
+.sys_combos .icon-legal{
+	margin-right: 10px;
+}
+.sys_combo{
+	overflow: hidden;
+	*zoom:1;
+	width: 100%;
+}
+.sys_combo span{
+	display: inline-block;
+	float: left;
+	padding: 0 20px;
+	margin-bottom: 20px;
+}
+.sys_combo span.name{
+	background: #638F54;
+	position: relative;
+}
+.sys_combo span.combo{
+	background: #4A5157;
+}
+
 /************************************   page css *****************************************/
 
 
@@ -172,6 +251,8 @@ footer{
 	margin: 68px 0 0 0;
 	width: 95px;
 	height: 95px;
+	opacity: 0;
+	-webkit-transition:opacity .5s;
 }
 
 .logo_info{
@@ -183,18 +264,17 @@ footer{
 
 .logo_text{
 	float:left;
-	color: #000;
+	color: #C5C5C5;
 	font-size: 120px;
 	font-family: 'Microsoft YaHei';
 	line-height: 140px;
-	height:200px;
 }
 .logo_extra{
 	float:left;
 	position: relative;
 	left: -475px;
 	top: -70px;
-	color: #000;
+	color: #C5C5C5;
 	font-size: 120px;
 	font-family: 'Microsoft YaHei';
 }
@@ -204,7 +284,7 @@ footer{
 	font-size: 20px;
 	left: -140px;
 	top: 120px;
-	color: #666666;
+	color: #AAAAAA;
 	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','Microsoft YaHei',sans-serif；
 
 }
@@ -221,11 +301,13 @@ footer{
 }
 
 .navlink{
+	display: block;
 	cursor: pointer;
 	padding: 5px 10px 5px 0;
 	position: relative;
 	/*color: #529146;*/
-	color: #FF8500;
+	/*color: #FF8500;*/
+	color:#FAC851;
 
 	-webkit-transition: color 1s;
 	-moz-transition: color 1s;
@@ -248,7 +330,8 @@ footer{
 	-o-transition: width 1s;
 }
 .navlink:hover{
-	color: #fff;
+	color: #000;
+	text-decoration: none;
 	-webkit-transition: color .5s;
 	-moz-transition: color .5s;
 	-ms-transition: color .5s;
@@ -267,48 +350,268 @@ footer{
 .banner{
 	width: 100%;
 	height: 330px;
-	background: url(../img/banner.jpg) no-repeat;
-	background-size: cover;
-}
 
-.banner .intro{
-	position: relative;
-	top: 150px;
-	padding-left: 50px;
-	width: 800px;
-	font-size: 20px;
+
 	background: rgba(248, 240, 206, 0.26);
 }
 
 
-
-.feature_line{
-	background: url(../img/checker_grey.png) repeat-x;
-	width: 100%;
-	height: 10px;
-	z-index: 10;
-	display: block;
-	margin:50px 0;
+.banner .intro{
+	padding: 5px 50px;
+	font-size: 20px;
+	position: relative;
+	top: 50px;
+}
+.banner .intro p{
+	width: 450px;
+}
+.banner .intro span{
+	margin: 0 25px 0 10px;
 }
 
-.feature_line{
-	margin: 15px 0;
+.banner_logo{
+	width: 450px;
+	height: 330px;
+	position: absolute;
+	right: 0;
+	top: 0;
+	overflow: hidden;
+	z-index: -1;
+}
+.banner_logo img{
+	width: 470px;
 }
 
+.features{
+	overflow: hidden;
+	*zoom:1;
+	position: relative;
+}
 .feature{
 	width: 400px;
-	height: 200px;
-	margin-right: 50px;
 	display: inline-block;
+	background: #638F54;
+	border-radius: 5px;
+	text-indent: 10px;
+	float: left;
+}
+.feature p{
+	margin: 0;
+	padding: 0;
+	line-height: 25px;
+	text-indent: 10px;
 }
 
-.tutorial{
-
+.feature-head{
+	height: 60px;
+	line-height: 60px;
+	background: #383A3C;
+	border-radius: 5px 5px 0 0;
+	font-size: 24px;
+	position: relative;
 }
+.feature-head .small{
+	color: #595B5E;
+	font-size: 18px;
+}
+.feature-head .icon-chevron-down{
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+
+.feature-body{
+	list-style: none;
+	padding-left: 0;
+	margin: 0;
+}
+.feature-body li{
+	padding: 10px 0;
+	border-bottom: 1px solid #434343;
+}
+.feature-body li:last-child{
+	border-bottom: none;
+}
+.feature-body .icon-circle{
+	color: #315C2B;
+	font-size: 30px;
+	float: left;
+	margin-top: 10px;
+}
+.feature-body .small{
+	color: #104902;
+	font-size: 12px;
+}
+
+#toggleBtn{
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	cursor: pointer;
+	width: 80px;
+	height: 30px;
+	overflow: hidden;
+	background: #34495E;
+	border-radius: 30px;
+	color: #1ABC9C;
+}
+#toggleBtn .icon-my-circle{
+	font-size: 25px;
+	margin: 0 10px 0 5px;
+	background: #1ABC9C;
+	width: 23px;
+	height: 23px;
+	border-radius: 23px;
+	display: inline-block;
+	vertical-align: -4px;
+}
+#toggleBtn .toggle-radio{
+	float: left;
+	cursor: pointer;
+}
+
 .code_block{
 	width: 900px;
 	height: 500px;
 	overflow: auto;
 	line-height: 1.5;
 	margin: 0 auto;
+}
+.icon-my{
+	position: absolute;
+	border-radius: 3px;
+	font-size: 14px;
+	color: white;
+	padding: 1px 2px;
+	font-weight: bold!important;
+}
+.icon-working{
+	background: #3498DB;
+}
+.icon-beta{
+	background: #E29F00;
+}
+.icon-my-arrow{
+	font-size: 50px;
+	margin: 100px 50px!important;
+	float: left;
+}
+.icon-right-triangle{
+	width: 0px;
+	height: 0px;
+	display: block;
+	border-style: solid;
+	border-width: 8px 10px;
+	border-color: transparent transparent transparent #638F54;
+	position: absolute;
+	left: 100%;
+	top: 8px;
+}
+
+
+#canvas_logo{
+	position: absolute;
+/*	border: 1px solid;*/
+	left: 700px;
+	-webkit-animation: logo-anim 5.15s linear;
+	-moz-animation: logo-anim 5.15s linear;
+	-o-animation: logo-anim 5.15s linear;
+	animation: logo-anim 5.15s linear;
+
+	-webkit-transition:opacity 1s;
+}
+
+@-webkit-keyframes logo-anim{
+	0% {left:700px;} /* 跑步: 30/200=0.15  dis:250*/
+	22%{left:450px;} /* 飞踢: 12/200=0.06  dis:100*/
+	30%{left:350px;} /* 拳击: 48/200=0.24  dis:0  */
+	54%{left:350px;} /* 飞踢: 12/200=0.06  dis:100 */
+	60%{left:300px;} /* 滚  ：40/200=0.20  dis:250*/
+	80%{left:0px;}   /* 收尾：43/200=0.20  dis:0*/
+	100%{left:0px;}
+}
+
+.canvas_logo_hidden{
+	opacity: 0!important;
+	left: 0!important;
+}
+.logo_show{
+	opacity: 1 !important;
+}
+
+
+
+/*********************   	flat UI    *************************/
+.toggle{
+	background-color: #34495e;
+border-radius: 60px;
+color: white;
+height: 29px;
+margin: 0 12px 12px 0;
+overflow: hidden;
+display: inline-block;
+zoom: 1;
+-webkit-transition: 0.25s;
+-moz-transition: 0.25s;
+-o-transition: 0.25s;
+transition: 0.25s;
+-webkit-backface-visibility: hidden;
+}
+.toggle:before, .toggle:after {
+display: table;
+content: "";
+}
+.toggle:after {
+clear: both;
+}
+.toggle .toggle-radio:first-child {
+margin-bottom: -29px;
+left: 0;
+}
+
+.toggle .toggle-radio {
+background: url("http://www.bootcss.com/p/flat-ui/images/toggle/icon-on.png") right top no-repeat;
+color: #1abc9c;
+display: block;
+font-weight: 700;
+height: 21px;
+left: 120%;
+margin-left: -13px;
+padding: 5px 32px 3px;
+position: relative;
+text-align: center;
+z-index: 2;
+-webkit-transition: 0.25s;
+-moz-transition: 0.25s;
+-o-transition: 0.25s;
+transition: 0.25s;
+-webkit-backface-visibility: hidden;
+line-height: 20px;
+}
+
+.toggle input {
+display: none;
+position: absolute;
+outline: none !important;
+display: block\9;
+opacity: 0.01;
+filter: alpha(opacity=1);
+zoom: 1;
+vertical-align: middle;
+}
+
+.toggle.toggle-off .toggle-radio {
+background-image: url("http://www.bootcss.com/p/flat-ui/images/toggle/icon-off.png");
+background-position: 0 0;
+color: white;
+left: 0;
+margin-left: 0.5px;
+margin-right: -13px;
+z-index: 1;
+}
+.toggle.toggle-off {
+background-color: #cbd2d8!important;
+}
+.toggle.toggle-off .toggle-radio:first-child {
+left: -120%;
 }
