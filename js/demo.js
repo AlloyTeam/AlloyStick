@@ -14,14 +14,16 @@ var demoApp = function(){
 
 	/********************     开场动画    ***************************/
 	function animEndHandler(){
-		logoImg.classList.add('logo_show');
-		canvas_logo.classList.add('canvas_logo_hidden')
+		lin.addClass(logoImg,'logo_show');
+		lin.addClass(canvas_logo,'canvas_logo_hidden');
 	}
-	canvas_logo.classList.add('canvas_logo_start');
-	canvas_logo.addEventListener('webkitAnimationEnd',animEndHandler); //for chrome
-	canvas_logo.addEventListener('animationend',animEndHandler);       //for firefox
-	canvas_logo.addEventListener('MSAnimationEnd',animEndHandler);     //for IE
-	canvas_logo.addEventListener('oAnimationEnd',animEndHandler);      //for Opera
+
+	lin.addClass(canvas_logo,'canvas_logo_start');  
+	lin.addEvent(canvas_logo,'webkitAnimationEnd',animEndHandler);  //for chrome
+	lin.addEvent(canvas_logo,'animationend',animEndHandler);        //for firefox
+	lin.addEvent(canvas_logo,'MSAnimationEnd',animEndHandler);      //for IE
+	lin.addEvent(canvas_logo,'oAnimationEnd',animEndHandler);       //for Opera
+
 
 	logoman.setEaseType(false);
 	logoman.setPos(65,50);
@@ -59,31 +61,16 @@ var demoApp = function(){
 	demoScene.addObj(xiaoxiao);
 	demoScene.setFPS(40);
 
-	// if(window.addEventListener){
-	// 	window.addEventListener('keydown',keydownHandler);
-	// 	window.addEventListener('keyup',keyupHandler);
-	// }else{
-	// 	window.attachEvent('onkeydown',keydownHandler);
-	// 	window.attachEvent('onkeyup',keyupHandler);
-	// }
-	// toggleTrue.addEventListener('click',function(){
-	// 	toggleBtn.classList.add('toggle-off');
-	// 	if(xiaoxiao) xiaoxiao.setVector(true);
-	// });
-	// toggleFlase.addEventListener('click',function(){
-	// 	toggleBtn.classList.remove('toggle-off');
-	// 	if(xiaoxiao) xiaoxiao.setVector(false);
-	// });
 
-	addEvent(window,'keydown',keydownHandler);
-	addEvent(window,'keyup',keyupHandler);
+	lin.addEvent(window,'keydown',keydownHandler);
+	lin.addEvent(window,'keyup',keyupHandler);
 
-	addEvent(toggleTrue,'click',function(){
-		toggleBtn.classList.add('toggle-off');
+	lin.addEvent(toggleTrue,'click',function(){
+		lin.addClass(toggleBtn,'toggle-off');
 		if(xiaoxiao) xiaoxiao.setVector(true);
 	})
-	addEvent(toggleFlase,'click',function(){
-		toggleBtn.classList.remove('toggle-off');
+	lin.addEvent(toggleFlase,'click',function(){
+		lin.removeClass(toggleBtn,'toggle-off');
 		if(xiaoxiao) xiaoxiao.setVector(false);
 	})
 
@@ -165,7 +152,7 @@ var demoApp = function(){
 		//按钮响应“按下”样式的逻辑
 		var doms = document.getElementsByClassName('key_'+keyName);
 		for(var i = 0; i<doms.length; i++){
-			doms[i].classList.add('pressdown');
+			lin.addClass(doms[i],'pressdown');
 		}
 	};
 
@@ -174,7 +161,7 @@ var demoApp = function(){
 		var doms = document.getElementsByClassName('key_'+keyName);
 
 		for(var i = 0; i<doms.length; i++){
-			doms[i].classList.remove('pressdown');
+			lin.removeClass(doms[i],'pressdown');
 		}
 	}
 
@@ -232,8 +219,11 @@ var demoApp = function(){
 
 }
 
+window.onload = demoApp;
 
-function addEvent(eventTarget, eventType, eventHandler) {
+/**************    utils function   **********/
+var lin = {};
+lin.addEvent = function(eventTarget, eventType, eventHandler) {
     if (eventTarget.addEventListener) {
         eventTarget.addEventListener(eventType, eventHandler, false);
     } else {
@@ -245,5 +235,41 @@ function addEvent(eventTarget, eventType, eventHandler) {
         }
     }
 }
-window.onload = demoApp;
+lin.hasClass = function(inElement, inClassName){
+    if(!inElement) return;
+    var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)');
+    return regExp.test(inElement.className);
+}
+
+lin.addClass = function(inElement, inClassName){
+    if(!inElement) return;
+    if (!this.hasClass(inElement, inClassName))
+        inElement.className = [inElement.className, inClassName].join(' ');
+}
+
+lin.removeClass = function(inElement, inClassName){
+    if(!inElement) return;
+    if (this.hasClass(inElement, inClassName)) {
+        var regExp = new RegExp('(?:^|\\s+)' + inClassName + '(?:\\s+|$)', 'g');
+        var curClasses = inElement.className;
+        inElement.className = curClasses.replace(regExp, ' ');
+    }
+}
+
+lin.toggleClass = function(inElement, inClassName){
+    if (this.hasClass(inElement, inClassName))
+        this.removeClass(inElement, inClassName);
+    else
+        this.addClass(inElement, inClassName);
+}
+
+lin.replaceClass = function(inElement,oldClass,newClass){
+    if(!inElement) return;
+    if (this.hasClass(inElement, oldClass)) {
+        var regExp = new RegExp('(?:^|\\s+)' + oldClass + '(?:\\s+|$)', 'g');
+        var curClasses = inElement.className;
+        inElement.className = curClasses.replace(regExp, ' '+newClass);
+    }
+}
+
 	
