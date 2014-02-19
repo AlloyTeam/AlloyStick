@@ -253,6 +253,10 @@ margin: 0 15px 20px 0;
 	height: 95px;
 	opacity: 0;
 	-webkit-transition:opacity .5s;
+	-moz-transition:opacity .5s;
+	-ms-transition:opacity .5s;
+	-o-transition:opacity .5s;
+	transition:opacity .5s;
 }
 
 .logo_info{
@@ -518,13 +522,54 @@ margin: 0 15px 20px 0;
 .canvas_logo_start{
 	-webkit-animation: logo-anim 5.15s linear;
 	-moz-animation: logo-anim 5.15s linear;
+	-ms-animation: logo-anim 5.15s linear;
 	-o-animation: logo-anim 5.15s linear;
 	animation: logo-anim 5.15s linear;
 
 	-webkit-transition:opacity 1s;
+	-moz-transition:opacity 1s;
+	-ms-transition:opacity 1s;
+	-o-transition:opacity 1s;
+	transition:opacity 1s;
 }
 
 @-webkit-keyframes logo-anim{
+	0% {left:700px;} /* 跑步: 30/200=0.15  dis:250*/
+	22%{left:450px;} /* 飞踢: 12/200=0.06  dis:100*/
+	30%{left:350px;} /* 拳击: 48/200=0.24  dis:0  */
+	54%{left:350px;} /* 飞踢: 12/200=0.06  dis:100 */
+	60%{left:300px;} /* 滚  ：40/200=0.20  dis:250*/
+	80%{left:0px;}   /* 收尾：43/200=0.20  dis:0*/
+	100%{left:0px;}
+}
+@-moz-keyframes logo-anim{
+	0% {left:700px;} /* 跑步: 30/200=0.15  dis:250*/
+	22%{left:450px;} /* 飞踢: 12/200=0.06  dis:100*/
+	30%{left:350px;} /* 拳击: 48/200=0.24  dis:0  */
+	54%{left:350px;} /* 飞踢: 12/200=0.06  dis:100 */
+	60%{left:300px;} /* 滚  ：40/200=0.20  dis:250*/
+	80%{left:0px;}   /* 收尾：43/200=0.20  dis:0*/
+	100%{left:0px;}
+}
+@-ms-keyframes logo-anim{
+	0% {left:700px;} /* 跑步: 30/200=0.15  dis:250*/
+	22%{left:450px;} /* 飞踢: 12/200=0.06  dis:100*/
+	30%{left:350px;} /* 拳击: 48/200=0.24  dis:0  */
+	54%{left:350px;} /* 飞踢: 12/200=0.06  dis:100 */
+	60%{left:300px;} /* 滚  ：40/200=0.20  dis:250*/
+	80%{left:0px;}   /* 收尾：43/200=0.20  dis:0*/
+	100%{left:0px;}
+}
+@-o-keyframes logo-anim{
+	0% {left:700px;} /* 跑步: 30/200=0.15  dis:250*/
+	22%{left:450px;} /* 飞踢: 12/200=0.06  dis:100*/
+	30%{left:350px;} /* 拳击: 48/200=0.24  dis:0  */
+	54%{left:350px;} /* 飞踢: 12/200=0.06  dis:100 */
+	60%{left:300px;} /* 滚  ：40/200=0.20  dis:250*/
+	80%{left:0px;}   /* 收尾：43/200=0.20  dis:0*/
+	100%{left:0px;}
+}
+@keyframes logo-anim{
 	0% {left:700px;} /* 跑步: 30/200=0.15  dis:250*/
 	22%{left:450px;} /* 飞踢: 12/200=0.06  dis:100*/
 	30%{left:350px;} /* 拳击: 48/200=0.24  dis:0  */

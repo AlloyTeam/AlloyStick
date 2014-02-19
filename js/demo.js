@@ -13,11 +13,15 @@ var demoApp = function(){
 		logoman = new alloysk.Armature('xiaoxiao',textureImg);
 
 	/********************     开场动画    ***************************/
-	canvas_logo.classList.add('canvas_logo_start');
-	canvas_logo.addEventListener('webkitAnimationEnd',function(e){
+	function animEndHandler(){
 		logoImg.classList.add('logo_show');
 		canvas_logo.classList.add('canvas_logo_hidden')
-	});
+	}
+	canvas_logo.classList.add('canvas_logo_start');
+	canvas_logo.addEventListener('webkitAnimationEnd',animEndHandler); //for chrome
+	canvas_logo.addEventListener('animationend',animEndHandler);       //for firefox
+	canvas_logo.addEventListener('MSAnimationEnd',animEndHandler);     //for IE
+	canvas_logo.addEventListener('oAnimationEnd',animEndHandler);      //for Opera
 
 	logoman.setEaseType(false);
 	logoman.setPos(65,50);
@@ -55,22 +59,33 @@ var demoApp = function(){
 	demoScene.addObj(xiaoxiao);
 	demoScene.setFPS(40);
 
-	if(window.addEventListener){
-		window.addEventListener('keydown',keydownHandler);
-		window.addEventListener('keyup',keyupHandler);
-	}else{
-		window.attachEvent('onkeydown',keydownHandler);
-		window.attachEvent('onkeyup',keyupHandler);
-	}
+	// if(window.addEventListener){
+	// 	window.addEventListener('keydown',keydownHandler);
+	// 	window.addEventListener('keyup',keyupHandler);
+	// }else{
+	// 	window.attachEvent('onkeydown',keydownHandler);
+	// 	window.attachEvent('onkeyup',keyupHandler);
+	// }
+	// toggleTrue.addEventListener('click',function(){
+	// 	toggleBtn.classList.add('toggle-off');
+	// 	if(xiaoxiao) xiaoxiao.setVector(true);
+	// });
+	// toggleFlase.addEventListener('click',function(){
+	// 	toggleBtn.classList.remove('toggle-off');
+	// 	if(xiaoxiao) xiaoxiao.setVector(false);
+	// });
 
-	toggleTrue.addEventListener('click',function(){
+	addEvent(window,'keydown',keydownHandler);
+	addEvent(window,'keyup',keyupHandler);
+
+	addEvent(toggleTrue,'click',function(){
 		toggleBtn.classList.add('toggle-off');
 		if(xiaoxiao) xiaoxiao.setVector(true);
-	});
-	toggleFlase.addEventListener('click',function(){
+	})
+	addEvent(toggleFlase,'click',function(){
 		toggleBtn.classList.remove('toggle-off');
 		if(xiaoxiao) xiaoxiao.setVector(false);
-	});
+	})
 
 
 	var animStack = [],
@@ -217,5 +232,18 @@ var demoApp = function(){
 
 }
 
+
+function addEvent(eventTarget, eventType, eventHandler) {
+    if (eventTarget.addEventListener) {
+        eventTarget.addEventListener(eventType, eventHandler, false);
+    } else {
+        if (eventTarget.attachEvent) {
+            eventType = "on" + eventType;
+            eventTarget.attachEvent(eventType, eventHandler);
+        } else {
+            eventTarget["on" + eventType] = eventHandler;
+        }
+    }
+}
 window.onload = demoApp;
 	
