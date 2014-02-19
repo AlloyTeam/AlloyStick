@@ -13,6 +13,7 @@ var demoApp = function(){
 		logoman = new alloysk.Armature('xiaoxiao',textureImg);
 
 	/********************     开场动画    ***************************/
+	canvas_logo.classList.add('canvas_logo_start');
 	canvas_logo.addEventListener('webkitAnimationEnd',function(e){
 		logoImg.classList.add('logo_show');
 		canvas_logo.classList.add('canvas_logo_hidden')

@@ -513,6 +513,9 @@ margin: 0 15px 20px 0;
 	position: absolute;
 /*	border: 1px solid;*/
 	left: 700px;
+
+}
+.canvas_logo_start{
 	-webkit-animation: logo-anim 5.15s linear;
 	-moz-animation: logo-anim 5.15s linear;
 	-o-animation: logo-anim 5.15s linear;
