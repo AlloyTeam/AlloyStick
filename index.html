@@ -20,8 +20,8 @@
 				<a class="navlink" href="#section-feature">介绍 <i class="icon-leaf"></i> <i class="link_bg"></i></a>
 				<a class="navlink" href="#section-demo">Demo <i class="icon-th-large"></i><i class="link_bg"></i></a>
 				<a class="navlink" href="#section-tutorial">使用教程 <i class="icon-book"> <i class="link_bg"></i></i></a>
-				<a class="navlink" href="#section-down">下载  <i class="icon-download-alt"></i> <i class="link_bg"></i></a>
-				<a class="navlink" >关于我们 <i class="icon-envelope"></i><i class="link_bg"></i></a>	
+				<a class="navlink" href="https://github.com/AlloyTeam/AlloyStick.git" target="_blank">下载  <i class="icon-download-alt"></i> <i class="link_bg"></i></a>
+				<a class="navlink" href="http://www.alloyteam.com/about/" target="_blank">关于我们 <i class="icon-envelope"></i><i class="link_bg"></i></a>	
 			</nav>
 
 			<canvas id="canvas_logo" width="120px" height="120px">抱歉，你的浏览器不支持canvas，建议你使用Chrome浏览器，杜绝360浏览器。</canvas>
@@ -74,20 +74,23 @@
 					</div>
 					<ul class="feature-body">
 						<li><i class="icon-circle"></i>
-							<p>动画时间可控</p>
-							<p class="small">慢动作，冰冻减速等效果可以轻松完成</p></li>
+							<p>动画切换自动补间</p>
+							<p class="small">过渡动画自动生成，让动作更加灵动</p></li>
 						<li><i class="icon-circle"></i>
 							<p>骨骼可控</p>
 							<p class="small">轻松实现角色装备更换，甚至可对某骨骼做特殊控制或事件监听</p></li>
 						<li><i class="icon-circle"></i>
-							<p>事件监听</p>
-							<p class="small">骨骼事件帧，自由控制动画触发事件</p></li>
+							<p>骨骼事件帧</p>
+							<p class="small">动画执行到某个动作或某个帧，触发自定义事件行为</p></li>
 						<li><i class="icon-circle"></i>
 							<p>动作数据继承</p>
 							<p class="small">多角色可共用一套动画数据</p></li>
 						<li><i class="icon-circle"></i>
 							<p>可结合物理引擎</p>
 							<p class="small">结合物理引擎，应用广泛</p></li>
+						<li><i class="icon-circle"></i>
+							<p>结合精灵图动画制作混合动画</p>
+							<p class="small">精灵图作为骨骼动画蒙皮，扬长避短短</p></li>
 					</ul>
 				</div>
 			</div><!-- end of features -->
@@ -117,7 +120,7 @@
 
 				<div class="wording">
 					<div id="step1" class="step">
-						<p>你只看到我动画生硬骨骼会<span>断裂</span>
+						<p>你只看到我动画生硬骨骼会<span>突变</span>
 						<p style="left:200px;">却没看到我几帧动画还能<span>自动补间</span>衔接动作</p>
 					</div>
 					
@@ -292,15 +295,15 @@ window.onload = demoApp;
 			<div class="tuto1">
 				<p>要制作骨骼动画。只需在编辑器里绑定骨骼关系、配置骨骼蒙皮、设置简单的动画关键帧，依靠我们强大的自动补间和骨骼关系，就可以制作出生动的骨骼动画了，可惜的是，我们骨骼动画编辑器还在努力完善中T_T。。。敬请期待吧！</p>
 			</div>
-			<p><img src="./img/editor_working.jpg" width="800px"></p>
+			<!-- <p><img src="./img/editor_working.jpg" width="800px"></p> -->
 		</section>
 
-		<section id="section-down" class="download">
+		<!-- <section id="section-down" class="download">
 			<h3>下载</h3>
 			<div class="tuto1">
 				<p>这么好的东西，在哪里下载呢？</p>
 			</div>
-		</section>
+		</section> -->
 	</div>
 
 	
