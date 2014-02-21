@@ -110,7 +110,8 @@ var demoApp = function(){
 				animName : 'comeon', 
 				totalFrames : 35,
 				transitionFrames : 8
-			})
+			});
+			keyName = 'm';
 		}
 		if(e.keyCode == '78'){  // 'n' 擦擦大腿
 			animStack.push({
@@ -168,7 +169,7 @@ var demoApp = function(){
 	var animing = false;
 	var combos = [   ['j','j','k','l'],
 					['j','j','k','l','n'],
-					['o','p','n'],
+					['k','k','m'],
 					['r','o','n'],
 					['r','p','l']];
 
