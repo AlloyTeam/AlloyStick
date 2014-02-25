@@ -50,7 +50,7 @@ header{
 	position: relative;
 	height: 200px;
 	line-height: 1.5;
-	overflow: hidden;/* 非常必须，会影响到下面dom的文本排版*/
+	/*overflow: hidden;*/
 	font-family: 'Segoe UI Light','Segoe UI','Microsoft Jhenghei','Microsoft YaHei',sans-serif;
 }
 section{
@@ -515,8 +515,9 @@ margin: 0 15px 20px 0;
 
 #canvas_logo{
 	position: absolute;
-/*	border: 1px solid;*/
+
 	left: 700px;
+	top:50px;
 
 }
 .canvas_logo_start{
@@ -539,8 +540,8 @@ margin: 0 15px 20px 0;
 	30%{left:350px;} /* 拳击: 48/200=0.24  dis:0  */
 	54%{left:350px;} /* 飞踢: 12/200=0.06  dis:100 */
 	60%{left:300px;} /* 滚  ：40/200=0.20  dis:250*/
-	80%{left:0px;}   /* 收尾：43/200=0.20  dis:0*/
-	100%{left:0px;}
+	80%{left:-5px;}   /* 收尾：43/200=0.20  dis:0*/
+	100%{left:-5px;}
 }
 @-moz-keyframes logo-anim{
 	0% {left:700px;} /* 跑步: 30/200=0.15  dis:250*/
@@ -548,8 +549,8 @@ margin: 0 15px 20px 0;
 	30%{left:350px;} /* 拳击: 48/200=0.24  dis:0  */
 	54%{left:350px;} /* 飞踢: 12/200=0.06  dis:100 */
 	60%{left:300px;} /* 滚  ：40/200=0.20  dis:250*/
-	80%{left:0px;}   /* 收尾：43/200=0.20  dis:0*/
-	100%{left:0px;}
+	80%{left:-5px;}   /* 收尾：43/200=0.20  dis:0*/
+	100%{left:-5px;}
 }
 @-ms-keyframes logo-anim{
 	0% {left:700px;} /* 跑步: 30/200=0.15  dis:250*/
@@ -557,8 +558,8 @@ margin: 0 15px 20px 0;
 	30%{left:350px;} /* 拳击: 48/200=0.24  dis:0  */
 	54%{left:350px;} /* 飞踢: 12/200=0.06  dis:100 */
 	60%{left:300px;} /* 滚  ：40/200=0.20  dis:250*/
-	80%{left:0px;}   /* 收尾：43/200=0.20  dis:0*/
-	100%{left:0px;}
+	80%{left:-5px;}   /* 收尾：43/200=0.20  dis:0*/
+	100%{left:-5px;}
 }
 @-o-keyframes logo-anim{
 	0% {left:700px;} /* 跑步: 30/200=0.15  dis:250*/
@@ -566,8 +567,8 @@ margin: 0 15px 20px 0;
 	30%{left:350px;} /* 拳击: 48/200=0.24  dis:0  */
 	54%{left:350px;} /* 飞踢: 12/200=0.06  dis:100 */
 	60%{left:300px;} /* 滚  ：40/200=0.20  dis:250*/
-	80%{left:0px;}   /* 收尾：43/200=0.20  dis:0*/
-	100%{left:0px;}
+	80%{left:-5px;}   /* 收尾：43/200=0.20  dis:0*/
+	100%{left:-5px;}
 }
 @keyframes logo-anim{
 	0% {left:700px;} /* 跑步: 30/200=0.15  dis:250*/
@@ -575,13 +576,16 @@ margin: 0 15px 20px 0;
 	30%{left:350px;} /* 拳击: 48/200=0.24  dis:0  */
 	54%{left:350px;} /* 飞踢: 12/200=0.06  dis:100 */
 	60%{left:300px;} /* 滚  ：40/200=0.20  dis:250*/
-	80%{left:0px;}   /* 收尾：43/200=0.20  dis:0*/
-	100%{left:0px;}
+	80%{left:-5px;}   /* 收尾：43/200=0.20  dis:0*/
+	100%{left:-5px;}
 }
 
 .canvas_logo_hidden{
 	opacity: 0!important;
 	left: 0!important;
+}
+.canvas_logo_show{
+	left: -5px !important;
 }
 .logo_show{
 	opacity: 1 !important;

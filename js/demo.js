@@ -14,8 +14,13 @@ var demoApp = function(){
 
 	/********************     开场动画    ***************************/
 	function animEndHandler(){
-		lin.addClass(logoImg,'logo_show');
-		lin.addClass(canvas_logo,'canvas_logo_hidden');
+		//取消使用【嵌入】的效果
+		//lin.addClass(logoImg,'logo_show');
+		//lin.addClass(canvas_logo,'canvas_logo_hidden');
+		lin.addClass(canvas_logo,'canvas_logo_show');
+		setInterval(function(){
+			logoman.playTo('comeon',35,10,false); 
+		},5000);
 	}
 
 	lin.addClass(canvas_logo,'canvas_logo_start');  
