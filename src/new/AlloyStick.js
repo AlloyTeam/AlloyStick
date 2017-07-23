@@ -7,7 +7,7 @@ import Armature from './Stick';
 import Utils from './Utils';
 
 // 通过workFlow的方式,致力于清晰的逻辑并且避免冗余
-// todo 暴露更多的API, 增加暂停功能
+// todo 暴露更多的API
 
 export default class AlloyStick{
 

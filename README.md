@@ -2,6 +2,10 @@
 <img src="./logo.png" style="width:150px"/>
 </p>
 <p align="center">
+beta 0.5.1
+</a>
+</p>
+<p align="center">
 <a href='http://alloyteam.github.io/AlloyStick'>
 http://alloyteam.github.io/AlloyStick
 </a>
