@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>AlloyStick-stickman</title>
+</head>
+<body style="width: 90%;margin: auto">
+
+<canvas id="canvas_logo" width="120px" height="120px">抱歉，你的浏览器不支持canvas，建议你使用Chrome浏览器，杜绝360浏览器。</canvas>
+
+<section id="section-demo" class="section-demo">
+    <h3 class="section-title">Demo<i class="title-triangle"></i></h3>
+
+    <div id="demo">
+        <canvas id="canvas" width="1300px" height="550px">抱歉，你的浏览器不支持canvas，建议你使用Chrome浏览器，杜绝360浏览器。</canvas>
+        <img src="./data/texture.png" id="xiaoxiaoImg" style="display:none;">
+
+        <div class="wording">
+            <div id="step1" class="step">
+                <p>你只看到我过关斩将<span>以一敌百</span>
+                <p style="left:200px;">却没看到我在这Demo里<span>拳拳脚脚</span>苦练多年</p>
+            </div>
+
+            <div id="step2" class="step">
+                <p>你有你的态度，我有我的想法</p>
+            </div>
+
+            <div id="step3" class="step">
+                <p>你嘲笑我只会殴打小盆友<span>拆Execl</span>，我可怜你冬天只会<span style="color:#E05A26">炸鸡和啤酒</span></p>
+            </div>
+
+            <div id="step4" class="step">
+                <p>你可以吐槽我早就<span>过时过气</span>顺便过节</p>
+                <p style="left: 100px;font-size: 32px;top: -15px;">我会证明这是谁的时代</p>
+            </div>
+
+            <div id="step5" class="step">
+                <p>做动画注定是痛苦的旅行，路上总少不了轻蔑和<span>肥皂</span></p>
+                <p><span style="font-size: 35px;">蛋</span>,又怎样</p>
+            </div>
+
+            <div id="step6" class="last_step">
+                <p>哪怕我居然情不自禁地去捡，也要展示我的<span>菊花</span><span>灿烂无比</span></p>
+                <p class="last_word">我是在漆黑森林里迷路的少年，我为AlloyStick代言</p>
+            </div>
+        </div>
+
+        <div class="combos">
+            <div id="combo1">
+                <i class="key_j"> J </i> + <i class="key_j">J</i> + <i class="key_k">K</i> + <i class="key_l">L</i>
+            </div>
+
+            <div id="combo2">
+                <i class="key_j"> J </i> + <i class="key_j">J</i> + <i class="key_k">K</i> + <i class="key_l">L</i> + <i class="key_n">N</i>
+            </div>
+
+            <div id="combo3">
+                <i class="key_k">K</i> + <i class="key_k">K</i> + <i class="key_m">M</i>
+            </div>
+
+            <div id="combo4">
+                <i class="key_r">R</i>+<i class="key_o">O</i>+<i class="key_n">N</i>
+            </div>
+
+            <div id="combo5">
+                <i class="key_r">R</i>+ <i class="key_p">P</i> + <i class="key_l">L</i>
+            </div>
+        </div>
+
+        <div id="toggleBtn" class="toggle">
+            <label id="toggle_on" class="toggle-radio" for="toggleOption4">ON</label>
+            <input type="radio" name="toggleOptions2" id="toggleOption3" value="option3">
+            <label id="toggle_off" class="toggle-radio" for="toggleOption3">OFF</label>
+            <input type="radio" name="toggleOptions2" id="toggleOption4" value="option4" checked="checked">
+        </div>
+
+    </div>
+
+    <div class="demo-operation">
+
+        <div class="keyboard">
+            <h2>Operation</h2>
+            <div class="key">J:前拳</div>
+            <div class="key">K:中拳</div>
+            <div class="key">L:踢</div>
+            <div class="key">R:跑步</div>
+            <div class="key">P:滚地板</div>
+            <div class="key">O:捡肥皂</div>
+            <div class="key">N:放松</div>
+            <div class="key">M:来吧！少年！</div>
+        </div>
+
+        <div class="sys_combos">
+            <h2>Combos</h2>
+            <div class="sys_combo">
+						<span class="name">
+							<i class="icon-legal"></i>古龙式拳法<i class="icon-right-triangle"></i></span>
+                <span class="combo">J+J+K + J+J+K + J+J+K...</span>
+            </div>
+            <div class="sys_combo">
+						<span class="name">
+							<i class="icon-legal"></i>翻滚侧踢<i class="icon-right-triangle"></i></span>
+                <span class="combo">R+P+L</span>
+            </div>
+
+            <div class="sys_combo">
+						<span class="name">
+							<i class="icon-legal"></i>我不断的翻滚，油腻的师姐在那里<i class="icon-right-triangle"></i></span>
+                <span class="combo">P+N + P+N ...</span>
+            </div>
+
+            <div class="sys_combo">
+						<span class="name">
+							<i class="icon-legal"></i>捡肥皂发现身后有杀机<i class="icon-right-triangle"></i></span>
+                <span class="combo">O+P+M</span>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+
+<script src='../../dist/AlloyStick.min.js'></script>
+<script src='data/resource1.js'></script>
+<script src='data/resource2.js'></script>
+
+<script>
+    console.log("Scene:",window.Scene);
+    console.log("Armature:",window.Armature);
+
+</script>
+
+<script src="js/demo.js"></script>
+
+</html>
