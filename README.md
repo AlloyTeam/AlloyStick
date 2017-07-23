@@ -1,5 +1,5 @@
 <p align="center">
-<img src="./logo.png" style="width:300px"/>
+<img src="./logo.png" style="width:150px"/>
 </p>
 <p align="center">
 <a href='http://alloyteam.github.io/AlloyStick'>
