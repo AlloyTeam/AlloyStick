@@ -31,9 +31,11 @@ We only exposed two variables(classes) for the window. So all operations are bas
 window.AlloyStick
 window.AlloyUtils 
 ```
+>attention: window.AlloyUtils may be removed soon
+
 Here is a suggested workflow to start your animation:
 
-#### create a scene
+#### 1.create a scene
 
 the only parameter is the context for the canvas.
 
@@ -41,7 +43,7 @@ the only parameter is the context for the canvas.
 let demoInstance = new window.AlloyStick({context:canvas.getContext('2d')});
 ```
 
-#### add an object
+#### 2.add an object
 
 A scene can has object, you can add objects one by one manually.
 
@@ -71,7 +73,7 @@ demoInstance.addObj(
     );
 ```
 
-#### bind events
+#### 3.bind events
 
 You can call the actions by using function, but the more convenient way is to bind a key to an event: when the user press down the certain key , an action should be called.
 
@@ -118,7 +120,7 @@ demoInstance.mapKeyToAni(
     );
 ```
 
-#### start
+#### 4.start
 
 Just start the instance:
 
@@ -144,11 +146,11 @@ let demoInstance = new window.AlloyStick({context:canvas.getContext('2d')});
 #### AlloyStick.addObj(roleConfig,initialAction,initialPosition,easeConfig)
 
 * arguments:
-	* {Object}roleConfig
-	* {Object}initialAction
-	* {Object}initialPosition
-	* {Object}easeConfig 
-		* default:`{ifEase:false}`*
+	* {Object} roleConfig
+	* {Object} initialAction
+	* {Object} initialPosition
+	* {Object} easeConfig 
+		* default:`{ifEase:false}`
 		* Optional
 * return: no return
 * usage: add object to this instance's scene(an instance of AlloyStick has only one scene)
@@ -183,7 +185,7 @@ demoInstance.addObj(
 #### AlloyStick.setVector(roleName)
 
 * arguments:
-	* {String}roleName
+	* {String} roleName
 		* Optional  
 * return: no return
 * usage: change all the roles(when the roleName is undefined) or certain roles to the vector mode 
@@ -191,7 +193,7 @@ demoInstance.addObj(
 #### AlloyStick.removeVector(roleName)
 
 * arguments:
-	* {String}roleName
+	* {String} roleName
 		* Optional
 * return: no return
 * usage: change all the roles(when the roleName is undefined) or certain roles to the normal mode
@@ -199,7 +201,7 @@ demoInstance.addObj(
 #### AlloyStick.showFPS(dom)
 
 * arguments:
-	* {String|dom}dom
+	* {String|dom} dom
 		* Optional
 * returns: no return
 * usage: show the fps monitor
@@ -213,7 +215,7 @@ demoInstance.addObj(
 #### AlloyStick.pause(obj)
 
 * arguments: 
-	* {Object}obj 
+	* {Object} obj 
 		* Optional
 * return: no return
 * usage: pause or restart the whole scene(if obj is undefined or no roleName is defined in the obj) or the certain role
@@ -236,10 +238,10 @@ demoInstance.pause({
 #### AlloyStick.mapKeyToAni(lists,keyDownOrUp,callBacks,replaceOrWait = 'wait')
 
 * arguments: 
-	* {Object}lists
-	* {'keydown'|'keyup'}keyDownOrUp
-	* {Object}callBacks
-	* {'wait'|'replace'}replaceOrWait
+	* {Object} lists
+	* {'keydown'|'keyup'} keyDownOrUp
+	* {Object} callBacks
+	* {'wait'|'replace'} replaceOrWait
 		* default: 'wait'
 		* Optional 
 * return: no return
@@ -275,14 +277,14 @@ demoInstance.mapKeyToAni(
 #### AlloyStick.addRules(lists)
 
 * arguments:
-	* {Object}lists 
+	* {Object} lists 
 * return: no return
 * usage: add the rules for mapping the keyboard buttons to actions
 
 #### AlloyStick.removeRules(key,role)
 
 * arguments:
-	* {String}key
+	* {String} key
 	* role
 		* optional 
 * return: no return
@@ -291,7 +293,7 @@ demoInstance.mapKeyToAni(
 
 #### AlloyStick.changeReplaceOrWait(replaceOrWait)
 * arguments: 
-	* {'wait'|'replace'}replaceOrWait
+	* {'wait'|'replace'} replaceOrWait
 * return: no return
 * usage: change the mode to 'wait' mode or 'replace' mode.
 
