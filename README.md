@@ -7,6 +7,18 @@ http://alloyteam.github.io/AlloyStick
 </a>
 </p>
 
+
+>本项目近期在进行重构，因此变动会比较大，如果您有什么好的想法，欢迎在[这里](https://github.com/AlloyTeam/AlloyStick/issues)提出
+
+### CONTENT
+
+* [demo](https://github.com/AlloyTeam/AlloyStick#demo)  
+* [usage](https://github.com/AlloyTeam/AlloyStick#usage)
+* [API](https://github.com/AlloyTeam/AlloyStick#api)
+* [Licence](https://github.com/AlloyTeam/AlloyStick#licence)
+
+
+
 ## Demo
 
 We have a demo in this project, you can download the project and run `example/stickman/index.html` by yourself.
@@ -74,7 +86,7 @@ beforeKeyUp
 afterKeyUp
 ```
 
-**The fourth parameter is important :** there are two modes for the animation: the wait mode and the replace mode. In the wait mode, all the triggerd animations will be in an array and acts one by one, pressing a keyboard button for many times quickly can cause the accumulation of animations.
+**The forth parameter is important :** there are two modes for the animation: the wait mode and the replace mode. In the wait mode, all the triggerd animations will be in an array and acts one by one, pressing a keyboard button for many times quickly can cause the accumulation of animations.
 But in the replaced mode, the animation being executed can not be interrupted, but there is at most one animation waiting, and there is no accumulation of animations. 
 
 the two modes can be used in different scenes.
