@@ -9,9 +9,9 @@ window.onload = function() {
         toggleTrue = document.getElementById('toggle_on'),
         toggleFlase = document.getElementById('toggle_off'),
         toggleBtn = document.getElementById("toggleBtn");
-
+    // 创建场景实例
     let demoInstance = new window.AlloyStick({context:canvas.getContext('2d')});
-
+    // 增加模型
     demoInstance.addObj(
         {
             roleName:'xiaoxiao',
@@ -45,7 +45,7 @@ window.onload = function() {
             ifEase:true,
         }
     );
-
+    // 给模型添加动作响应
     demoInstance.mapKeyToAni(
         {
             'j':{rules:[{role:'xiaoxiao',action:['simpleHit',12,5,false]},{role:'dada',action:['simpleHit',12,5,false]}]},
@@ -74,7 +74,7 @@ window.onload = function() {
         },
         'replace',
     );
-
+    //启动实例
     demoInstance.start();
 
     //以下是自主添加的控制逻辑

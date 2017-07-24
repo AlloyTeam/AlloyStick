@@ -179,7 +179,7 @@ demoInstance.addObj(
     );
 ```
 
-#### AlloyStick.roleNumbers()
+#### AlloyStick.objNumbers()
 
 * arguments: no arguments
 * return: {Number}

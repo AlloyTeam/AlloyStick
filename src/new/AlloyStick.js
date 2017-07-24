@@ -39,7 +39,7 @@ export default class AlloyStick{
         this.roleNumber += 1;
     }
 
-    roleNumbers(){
+    objNumbers(){
         return this.roleNumber;
     }
 
