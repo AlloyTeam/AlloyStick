@@ -12,7 +12,7 @@ window.onload = function() {
     // 创建场景实例
     let demoInstance = new window.AlloyStick({context:canvas.getContext('2d')});
     // 增加模型
-    demoInstance.addObj(
+    demoInstance.addRole(
         {
             roleName:'xiaoxiao',
             image:textureImg,
@@ -29,7 +29,7 @@ window.onload = function() {
         }
     );
 
-    demoInstance.addObj(
+    demoInstance.addRole(
         {
             roleName:'dada',
             image:textureImg,
@@ -59,11 +59,29 @@ window.onload = function() {
         },
         'keydown',
         {
+            //钩子函数
             beforeKeyDown:function(e){
                 let doms = document.getElementsByClassName('key_'+e.key);
                 for(let i = 0; i<doms.length; i++){
                     AlloyUtils.addClass(doms[i],'pressdown');
                 }
+                // 快速换装的例子,可以给任意部分改变贴图(注意要提前加载好图片)
+                if(e.key === 'c'){
+                    //快速换装测试
+                    let img = new Image();
+                    img.onload = function(){
+                        demoInstance.changeBoneImage('xiaoxiao','head',img,[0,0,66,66,-33,-33]);
+                    };
+                    img.src = './data/texture2.png';
+                }
+                if(e.key === 'v'){
+                    let img = new Image();
+                    img.onload = function(){
+                        demoInstance.changeBoneImage('xiaoxiao','head',img,[0,0,66,66,-33,-33]);
+                    };
+                    img.src = './data/texture.png';
+                }
+
             },
             afterKeyUp:function(e){
                 let doms = document.getElementsByClassName('key_'+e.key);
@@ -76,6 +94,7 @@ window.onload = function() {
     );
     //启动实例
     demoInstance.start();
+
 
     //以下是自主添加的控制逻辑
     toggleTrue.addEventListener('click',function(){

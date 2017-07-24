@@ -20,9 +20,10 @@ export default class AlloyStick{
         this.replaceOrWait = '';
     }
 
-    addObj(roleConfig,initialAction,initialPosition,easeConfig = {ifEase:false}){
+    addRole(roleConfig,initialAction,initialPosition,easeConfig = {ifEase:false}){
         if(this.roles.hasOwnProperty(roleConfig.roleName)){
             console.warn("duplicate names for one scene is not allowed");
+            return -1;
         }
 
         let tempRole = new Armature(roleConfig);
@@ -39,7 +40,7 @@ export default class AlloyStick{
         this.roleNumber += 1;
     }
 
-    objNumbers(){
+    roleNumbers(){
         return this.roleNumber;
     }
 
@@ -233,6 +234,28 @@ export default class AlloyStick{
                 }
             }
         }
+    }
+
+    changeBoneImage(roleName,boneName,image,positionData){
+        this.roles[roleName].changeBoneImage(boneName,image,positionData);
+    }
+
+    rolePlayTo(roleName,actionConfig){
+        if(!this.roles.hasOwnProperty(roleName)){
+            console.warn("No such role in this scene");
+            return -1;
+        }
+
+        if(this.replaceOrWait === 'wait'){
+            if(this.animationStacks.hasOwnProperty(roleName)){
+                this.animationStacks[roleName].push([actionConfig]);
+            } else{
+                this.animationStacks[roleName] = [[actionConfig]];
+            }
+        } else{
+            this.animationStacks[roleName] = [[actionConfig]];
+        }
+
     }
 
     start(){

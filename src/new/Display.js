@@ -71,6 +71,16 @@ export default class Display extends Instance{
         this.isVector = false;
     }
 
+    //对实时换装的功能的支持
+    changeImage(image,frame){
+        this.image = image;
+        this.frame = Utils.type.isArray(frame) ? frame : [0, 0, image.width, image.height];  //注意位图资源先加载
+        this.width = this.frame[2];
+        this.height = this.frame[3];
+        this.originX = -this.frame[4] || 0;  //origin参数在_render方法里面需要
+        this.originY = -this.frame[5] || 0;
+    }
+
     render(context) {
         //  矢量的渲染实现 实际上这个函数虽然每次都被调用，但是并不承担变化功能，相反，我们是每次在_render函数里面改变context(相对运动原理)，所以这就解释了为什么_render中的写法比较奇怪
         if(this.isVector){ // 抽象框架方式渲染

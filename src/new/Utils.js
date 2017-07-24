@@ -68,8 +68,8 @@ const Utils = {
     replaceClass(inElement,oldClass,newClass){
         if(!inElement) return;
         if (this.hasClass(inElement, oldClass)) {
-            var regExp = new RegExp('(?:^|\\s+)' + oldClass + '(?:\\s+|$)', 'g');
-            var curClasses = inElement.className;
+            let regExp = new RegExp('(?:^|\\s+)' + oldClass + '(?:\\s+|$)', 'g');
+            let curClasses = inElement.className;
             inElement.className = curClasses.replace(regExp, ' '+newClass);
         }
     },

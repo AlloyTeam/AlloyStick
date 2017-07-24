@@ -47,19 +47,19 @@ the only parameter is the context for the canvas.
 let demoInstance = new window.AlloyStick({context:canvas.getContext('2d')});
 ```
 
-#### 2.add an object
+#### 2.add an role
 
-A scene can has object, you can add objects one by one manually.
+A scene can has servel roles(objects), you can add roles one by one manually.
 
 there are four parameters：
 
-* the config for the object
+* the config for the role
 * the initial action([animationName,totalFrames,transitionFrames,isloop] and the order of this array can be changed)
 * the position of the Object
 * Whether to call the easing function(In fact the easing function can be redefined by yourself)
 
 ```
-demoInstance.addObj(
+demoInstance.addRole(
         {
             roleName:'xiaoxiao',
             image:textureImg,
@@ -132,6 +132,8 @@ Just start the instance:
 demoInstance.start();
 ```
 
+This step is necessary, otherwise all actions can not be performed.
+
 ## API
 
 ### window.AlloyStick
@@ -147,7 +149,7 @@ demoInstance.start();
 let demoInstance = new window.AlloyStick({context:canvas.getContext('2d')});
 ``` 
 
-#### AlloyStick.addObj(roleConfig,initialAction,initialPosition,easeConfig)
+#### AlloyStick.addRole(roleConfig,initialAction,initialPosition,easeConfig)
 
 * arguments:
 	* {Object} roleConfig
@@ -157,11 +159,11 @@ let demoInstance = new window.AlloyStick({context:canvas.getContext('2d')});
 		* default:`{ifEase:false}`
 		* Optional
 * return: no return
-* usage: add object to this instance's scene(an instance of AlloyStick has only one scene)
+* usage: add role to this instance's scene(an instance of AlloyStick has only one scene)
 * example:
 
 ```
-demoInstance.addObj(
+demoInstance.addRole(
         {
             roleName:'xiaoxiao',
             image:textureImg,
@@ -179,11 +181,11 @@ demoInstance.addObj(
     );
 ```
 
-#### AlloyStick.objNumbers()
+#### AlloyStick.roleNumbers()
 
 * arguments: no arguments
 * return: {Number}
-* usage: return the number of objects of this AlloyStick instance
+* usage: return the number of roles of this AlloyStick instance
 
 
 #### AlloyStick.setVector(roleName)

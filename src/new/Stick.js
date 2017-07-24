@@ -239,7 +239,11 @@ class Bone{
         //根据update的时候赋值
         this._transformX = 0;		//要偏移的x
         this._transformY = 0;		//要偏移的y
-    };
+    }
+
+    changeImage(image,positionData){
+        this.display.changeImage(image,positionData);
+    }
 
     addChild(child){
         child._parent = this;
@@ -553,4 +557,8 @@ export default class Armature{
             }
         }
     };
+
+    changeBoneImage(boneName,image,positionData){
+        this.boneObjs[boneName].changeImage(image,positionData)
+    }
 }
