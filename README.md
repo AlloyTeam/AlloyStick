@@ -79,7 +79,7 @@ demoInstance.addRole(
 
 #### 3.bind events
 
-You can call the actions by using function, but the more convenient way is to bind a key to an event: when the user press down the certain key , an action should be called.
+You can call the actions by using function **rolePlayTo**, but the more convenient way is to bind a key to an event: when the user press down the certain key , an action should be called.
 
 The second parameter means the action is called whether 'keydown' or 'keyup'.
 
@@ -302,6 +302,16 @@ demoInstance.mapKeyToAni(
 	* {'wait'|'replace'} replaceOrWait
 * return: no return
 * usage: change the mode to 'wait' mode or 'replace' mode.
+
+#### AlloyStick.rolePlayTo(roleName,actionConfig)
+
+* arguments:
+    * {String}roleName
+    * {Array}actionConfig
+        * hint: [animationName,totalFrames,transitionFrames,isloop]
+* return: no return
+* usage: Use js to call the action
+
 
 #### AlloyStick.start()
 

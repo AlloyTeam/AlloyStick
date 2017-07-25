@@ -133,9 +133,8 @@ export default class AlloyStick{
             } else{
                 for(let i = 0 ; i < lists[key].rules;i += 1){
                     this.ruleLists[key].push(lists[key].rules[i]);
-
-                    let that = this;
                     /*
+                     let that = this;
                      if(!this.ruleLists[key].keydown)this.ruleLists[key].keydown = lists[key].keydown;//不管lists[key]指定没指定keydown都可以这样去写,顶多是undefined
                      if(this.ruleLists[key].keydown && lists[key].keydown)this.ruleLists[key].keydown = function(){that.ruleLists[key].keydown();lists[key].keydown()};//如果都指定了,不会replace掉,相当于依次调用
 
@@ -214,7 +213,7 @@ export default class AlloyStick{
                 for(let i = 0 ; i < lists[key].rules;i += 1){
                     this.ruleLists[key].push(lists[key].rules[i]);
 
-                    let that = this;
+                    //let that = this;
                 }
             }
         }
@@ -245,23 +244,20 @@ export default class AlloyStick{
             console.warn("No such role in this scene");
             return -1;
         }
-
         if(this.replaceOrWait === 'wait'){
             if(this.animationStacks.hasOwnProperty(roleName)){
-                this.animationStacks[roleName].push([actionConfig]);
+                this.animationStacks[roleName].push(actionConfig);
             } else{
-                this.animationStacks[roleName] = [[actionConfig]];
+                this.animationStacks[roleName] = [actionConfig];
             }
         } else{
-            this.animationStacks[roleName] = [[actionConfig]];
+            this.animationStacks[roleName] = [actionConfig];
         }
-
     }
 
     start(){
         let that = this;
         this.scene.start(function(){
-
             for(let roleName in that.roles){
                 if(!that.roles.hasOwnProperty(roleName))continue;// 因为babel没有办法转义新的API,所以这里采用ES5的写法
                 if(that.animationStacks.hasOwnProperty(roleName) && that.animationStacks[roleName].length && that.roles[roleName].isComplete()){

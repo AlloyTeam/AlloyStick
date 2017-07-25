@@ -81,6 +81,10 @@ window.onload = function() {
                     };
                     img.src = './data/texture.png';
                 }
+                //测试js调用动作
+                if(e.key === 'b'){
+                    demoInstance.rolePlayTo('dada',['simpleHit',12,5,false]);
+                }
 
             },
             afterKeyUp:function(e){
