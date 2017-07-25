@@ -54,9 +54,9 @@ A scene can has servel roles(objects), you can add roles one by one manually.
 there are four parameters：
 
 * the config for the role
-* the initial action([animationName,totalFrames,transitionFrames,isloop] and the order of this array can be changed)
-* the position of the Object
-* Whether to call the easing function(In fact the easing function can be redefined by yourself)
+* the initial action(**[{String}animationName,{Number}totalFrames,{Number}transitionFrames,{bool}isloop]** and the order of this array can not be changed)
+* the position of the Object(**[{Number}x,{Number}y]**)
+* Whether to call the easing function(In fact the easing function can be redefined by yourself in futher)
 
 ```
 demoInstance.addRole(
@@ -308,7 +308,7 @@ demoInstance.mapKeyToAni(
 * arguments:
     * {String}roleName
     * {Array}actionConfig
-        * hint: [animationName,totalFrames,transitionFrames,isloop]
+        * hint: [{String}animationName,{Number}totalFrames,{Number}transitionFrames,{bool}isloop]
 * return: no return
 * usage: Use js to call the action
 
