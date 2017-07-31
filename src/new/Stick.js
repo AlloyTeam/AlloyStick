@@ -495,7 +495,7 @@ export default class Armature{
                 let bone = this.boneObjs[boneName],
                     boneAniData = aniData[boneName];
 
-                //tween具体赋值。
+                // tween具体赋值。
                 let tween = this.tweenObjs[boneName];
                 tween.nodeList = boneAniData.nodeList;
                 tween.delay = boneAniData.delay || 0;
@@ -519,7 +519,7 @@ export default class Armature{
                     }
                     if(tween.delay !== 0){
                         // delay比如是0.05
-                        // 目前还是有点搞不清楚这个delay有什么用 感觉这个delay不是所谓的延迟,而是延后,这样就能够解释清楚了
+                        // delay不是所谓的延迟,而是延后,这样就能够解释清楚了
                         // 这个delay的计算跟Tween类的updateCurrentPercent方法的逻辑是一模一样的，TODO 看以后可以优化为一个函数不？
                         let playedKeyFrames = tween.keyFrametotal * (1 - tween.delay);
                         let fromIndex = 0,
@@ -548,7 +548,7 @@ export default class Armature{
                     }
 
                 }else {
-                    //静态显示
+                    // 静态显示
                     toNode.initValue(aniData[boneName].nodeList[0]); //(数据做了处理，静态显示的也装在只有一个数据的数组里面)
                     tween.loopTpye = -1;
                 }
