@@ -36,7 +36,7 @@ export class Instance{
 
     _transform(context) {
 
-        context.translate(this.x*this.size, this.y*this.size);
+        context.translate(this.x * this.size, this.y*this.size);
         if(this.size !== 1 ){ //整体上缩放
             context.scale(this.size, this.size);
         }
