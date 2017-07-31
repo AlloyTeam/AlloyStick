@@ -2,14 +2,13 @@
  * Created by iconie on 20/07/2017.
  */
 
-import Display from "./Display";
-
+import Display from './Display';
 const PI = Math.PI;
 const HALF_PI = Math.PI * 0.5;
 const DEG = PI/180;
 
 class Node{
-    constructor(x,y,rotation){
+    constructor(x, y, rotation){
         /**  渲染变量 **/
         this.x = x || 0;
         this.y = y || 0;
@@ -35,25 +34,23 @@ class Node{
 
 class TweenNode extends Node{
     constructor(x, y, rotation){
-        super(x,y,rotation);
-        /**  _sXX起始变量  _dXX差值变量 **/
-        //_sXX,_dXX都是用于，根据currentPrencent调用tweento来更新
-        this._sR = 0;   //from节点的rotation
-        this._sX = 0;	//from节点的x
-        this._sY = 0;	//from节点的y
-        this._sSX = 0;	//from节点的scaleX
-        this._sSY = 0;	//from节点的scaleY
-        this._sA = 0;	//from节点的alpha
-
-        this._dR = 0;	//rotation的差值
-        this._dX = 0;	//x的差值
-        this._dY = 0;	//y的差值
-        this._dSX = 0;	//scaleX的差值
-        this._dSY = 0;	//scaleY的差值
-        this._dA = 0;	//alpha的差值
+        super(x, y, rotation);
+        /**  _sXX起始变量  _dXX差值变量 根据currentPrencent调用tweento来更新 **/
+        this._sR = 0;   // from节点的rotation
+        this._sX = 0;	// from节点的x
+        this._sY = 0;	// from节点的y
+        this._sSX = 0;	// from节点的scaleX
+        this._sSY = 0;	// from节点的scaleY
+        this._sA = 0;	// from节点的alpha
+        this._dR = 0;	// rotation的差值
+        this._dX = 0;	// x的差值
+        this._dY = 0;	// y的差值
+        this._dSX = 0;	// scaleX的差值
+        this._dSY = 0;	// scaleY的差值
+        this._dA = 0;	// alpha的差值
     };
 
-    betweenValue(from, to){
+    betweenValue(from, to) {
         this._sR = from.rotation;
         this._sX = from.x;
         this._sY = from.y;
@@ -66,7 +63,7 @@ class TweenNode extends Node{
             this._dR = to.rotation - this._sR;
         }
 
-        //TODO hack 基于输出数据是跨度不超过180
+        // 基于输出数据是跨度不超过180
         if(this._dR > 180 ){
             this._dR = this._dR-360;
         }else if(this._dR < -180){
@@ -106,22 +103,22 @@ class TweenNode extends Node{
 class Tween{
     constructor(tweenNode){
         this.tweenNode = tweenNode;
-        //下面一块的变量是在playTo的时候才具体赋值
+        // 下面一块的变量是在playTo的时候才具体赋值
         this.nodeList = [];
         this.delay = 0;
-        this.transitionFrames = 0;          //过渡动画的需要的总帧数
-        this.totalFrames = 0; 	 			//总帧数 是要演示使用的共多少帧(包括补间帧)
-        this.keyFrametotal = 0;             //总的关键帧数 区分totalFrames 在playTo的时候才具体赋值
-        this.loopTpye = -2;                 //循环类型，-1静态显示(包括循环不循环)，-2动态循环显示，-3动态不循环显示
-        this.ease = true;        			 //默认为true
-        this.rate = 1;           		     //显示帧的速率
-        this.hasTransition = true;           //用于表示过渡动画展示了没有(每次playTo后都重新更新)
+        this.transitionFrames = 0;          // 过渡动画的需要的总帧数
+        this.totalFrames = 0; 	 			// 总帧数 是要演示使用的共多少帧(包括补间帧)
+        this.keyFrametotal = 0;             // 总的关键帧数 区分totalFrames 在playTo的时候才具体赋值
+        this.loopTpye = -2;                 // 循环类型，-1静态显示(包括循环不循环)，-2动态循环显示，-3动态不循环显示
+        this.ease = true;        			// 默认为true
+        this.rate = 1;           		    // 显示帧的速率
+        this.hasTransition = true;          // 用于表示过渡动画展示了没有(每次playTo后都重新更新)
         this.currentPercent = 0;
         this.currentFrame = 0;
         this.isComplete = false;
         this.isPause = false;
-        this.betweenFrame = 0;  //运行到某个关键帧obj的frame
-        this.listEndFrame = 0;  //某个关键帧obj自身加上前面所有的关键帧obj的frame之和，临界点判断是否要切换from，to的node
+        this.betweenFrame = 0;              // 运行到某个关键帧obj的frame
+        this.listEndFrame = 0;              // 某个关键帧obj自身加上前面所有的关键帧obj的frame之和，临界点判断是否要切换from，to的node
     }
 
     update(easeFunction){
@@ -137,24 +134,24 @@ class Tween{
                     this.currentPercent = Math.sin(this.currentPercent * HALF_PI);
                 }
             }else {
-                /***  这里过渡动画执行结束后，根据loopTpye切换参数更新currentPercen t***/
+                /***  这里过渡动画执行结束后，根据loopTpye切换参数更新currentPercent  ***/
                 this.hasTransition = false;
 
                 //静态显示  TODO 输出数据上没有输出静态显示的数据，待优化
                 if(this.loopTpye === -1){
                     this.currentPrecent = 1;
-                    this.isComplete = true;   //静态显示设置了isComplete，之后的update都不用做逻辑更新了
+                    this.isComplete = true;   // 静态显示设置了isComplete，之后的update都不用做逻辑更新了
                 }
-                //动态循环显示
+                // 动态循环显示
                 if(this.loopTpye === -2){
                     if(this.delay !== 0){
                         this.currentFrame = (1 - this.delay) * this.totalFrames;
                         this.currentPercent += this.currentFrame / this.totalFrames;
                     }
-                    this.currentPercent %= 1;  //这里我们更新了currentPercent
+                    this.currentPercent %= 1;  // 这里我们更新了currentPercent
                     this.listEndFrame = 0;
                 }
-                //动态不循环显示
+                // 动态不循环显示
                 if(this.loopTpye === -3){
                     this.currentPercent = (this.currentPercent-1)*this.transitionFrames/this.totalFrames;
                     if(this.currentPercent <1){
@@ -166,11 +163,11 @@ class Tween{
                 this.updateCurrentPercent(easeFunction);
             }
         }else{
-            this.currentFrame += this.rate;//每次update一次都会根据rate(显示速度)增加
+            this.currentFrame += this.rate;  // 每次update一次都会根据rate(显示速度)增加
             this.currentPercent = this.currentFrame / this.totalFrames;
             this.currentFrame %= this.totalFrames;
             if(this.loopTpye === -3 && this.currentPercent >= 1){
-                //动态不循环动画在循环动画执行一次后就停止了
+                // 动态不循环动画在循环动画执行一次后就停止了
                 this.currentPercent = 1;
                 this.isComplete = true;
             }else{
@@ -183,20 +180,19 @@ class Tween{
     };
 
     updateCurrentPercent(easeFunction){
-        //playedKeyFrames  相对于总关键帧和，运行到某个的当前帧数
-        let playedKeyFrames = this.keyFrametotal * this.currentPercent;
-        /**
+        let playedKeyFrames = this.keyFrametotal * this.currentPercent;  // 相对于总关键帧和，运行到某个的当前帧数
+        /*
          * 关键帧obj切换的时候更新node差值
          */
         if(playedKeyFrames <= this.listEndFrame-this.betweenFrame || playedKeyFrames > this.listEndFrame){
             this.listEndFrame = 0;
             let toIndex = 0,fromIndex = 0;
-            //循环显示的核心
+            // 循环显示的核心
             while(playedKeyFrames >= this.listEndFrame){
                 this.betweenFrame = this.nodeList[toIndex].frame;
                 this.listEndFrame += this.betweenFrame;
                 fromIndex = toIndex;
-                //当运动到最后一个关键帧obj的时候，循环动画的时候，我们就使用from为最后一个关键帧obj，to为第一个关键帧obj
+                // 当运动到最后一个关键帧obj的时候，循环动画的时候，我们就使用from为最后一个关键帧obj，to为第一个关键帧obj
                 if(++toIndex >= this.nodeList.length){
                     toIndex = 0;
                 }
@@ -204,11 +200,11 @@ class Tween{
 
             let fromNode = this.nodeList[fromIndex];
             let toNode = this.nodeList[toIndex];
-            //每当切换 关节帧之间的动作 会更新node的差值
+            // 每当切换关节帧之间的动作 会更新node的差值
             this.tweenNode.betweenValue(fromNode, toNode);
         }
 
-        //这里我们换算currentPrecent，原来的currentPrecent是在总帧数上面，换算当前帧在某个关键帧obj的百分比
+        // 这里我们换算currentPrecent，原来的currentPrecent是在总帧数上面，换算当前帧在某个关键帧obj的百分比
         this.currentPercent = 1 - (this.listEndFrame - playedKeyFrames) / this.betweenFrame;
         if(this.ease){
             if(easeFunction) this.currentPercent = easeFunction(this.currentPercent);
@@ -219,8 +215,8 @@ class Tween{
 
 class Bone{
     constructor(roleName,boneName,display,alloysk){
-        this.body = null;  		//继承关系的父亲，一般都是armature类
-        this._parent = null;  	//骨骼上的父子关系
+        this.body = null;  		// 继承关系的父亲，一般都是armature类
+        this._parent = null;  	// 骨骼上的父子关系
         this.name = boneName;
         this.display = display;
         this.tweenNode = new TweenNode();
@@ -231,12 +227,12 @@ class Bone{
         this._lockY = boneData.y || 0;
         this._lockZ = boneData.z || 0;
 
-        //_parent父骨骼的_transform属性
+        // _parent父骨骼的_transform属性
         this._parentX = 0;
         this._parentY = 0;
         this._parentR = 0;
 
-        //根据update的时候赋值
+        // 根据update的时候赋值
         this._transformX = 0;		//要偏移的x
         this._transformY = 0;		//要偏移的y
     }
@@ -332,15 +328,15 @@ export default class Armature{
         this.x = 0;
         this.y = 0;
 
-        this.boneList = [];		   //两种不同的结构对bone的存储
+        this.boneList = [];		   // 两种不同的结构对bone的存储
         this.boneObjs = {};
-        this.tweenObjs = {};       //装的是骨骼的tween类
-        this.roleName = obj.roleName;  //记录这个armature的name
+        this.tweenObjs = {};       // 装的是骨骼的tween类
+        this.roleName = obj.roleName;  // 记录这个armature的name
 
-        this.fps = obj.fps || 60;             //一秒重绘多少次画面，只影响性能(速度？) TODO 目前fps没有应用到具体某个armature,后记统一性能优化处理
+        this.fps = obj.fps || 60;             // 一秒重绘多少次画面
         this.avgFPS = 0;
-        this.scene = null;         //表示这个armature被那个scene add，最重要的是使到两者数据打通
-        this.size = 1;			   //按输出数据的比例播放
+        this.scene = null;         // 表示这个armature被那个scene add，最重要的是使到两者数据打通
+        this.size = 1;			   // 按输出数据的比例播放
 
         this.boneDatas = obj.data.boneDatas;
         this.textureDatas = obj.data.textureDatas;
@@ -351,14 +347,12 @@ export default class Armature{
 
         for(let boneName in boneDatas){
             let boneTd =  textureDatas[boneName];
-            //TODO Display类优化
             let display = new Display(obj.image,[boneTd.x,boneTd.y,boneTd.width,boneTd.height,boneTd.originX,boneTd.originY]);
-            //这里没有把bone的父子关系逻辑放到构造函数里面，一是由于输出数据的独立性，二是bone可以不依赖关系就可以new出来
+            // 这里没有把bone的父子关系逻辑放到构造函数里面，一是由于输出数据的独立性，二是bone可以不依赖关系就可以new出来
             let bone = new Bone(obj.roleName,boneName,display,this);
             bone.body = this;  //bone的parent在外面赋值
             this.boneList.push(bone);
             this.boneObjs[boneName] = bone;
-
             this.tweenObjs[boneName] = new Tween(bone.tweenNode); //这里先赋值上一个空的tween类
         }
         //建立bone的关系
@@ -452,7 +446,7 @@ export default class Armature{
             bone = boneObjs[boneName];
             boneParent = boneObjs[boneData._parent];
             if(boneParent){
-                boneParent.addChild(bone); //TODO 实际上这里目前并没有执行到 不知道什么问题
+                boneParent.addChild(bone); //TODO 目前的demo实际上这里目前并没有执行到
             }
         }
     };
@@ -473,10 +467,7 @@ export default class Armature{
     render(context) {
         if(this.visible && this.alpha > 0){
             context.save();
-
-            //this.transform(context);
             context.translate(this.x,this.y);
-
             for(let i =0; i< this.boneList.length; i++){
                 this.boneList[i].display._render(context);
             }
@@ -506,8 +497,7 @@ export default class Armature{
                 tween.isComplete = tween.isPause = false;  //刷新
 
                 /**************    这里计算的from to 是过渡动画的   ****************/
-                //fromNode使用上一次的tweenNode的渲染值作为起始值，如果上一次没有，则是空值开始
-                fromNode.initValue(tween.tweenNode);
+                fromNode.initValue(tween.tweenNode); // fromNode使用上一次的tweenNode的渲染值作为起始值，如果上一次没有，则是空值开始
 
                 if(boneAniData.nodeList.length > 1){
                     //如果isloop为false，则是动态不循环动画(默认是动态循环动画)

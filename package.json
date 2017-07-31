@@ -23,7 +23,10 @@
     "url": "https://github.com/AlloyTeam/AlloyStick/issues"
   },
   "homepage": "https://github.com/AlloyTeam/AlloyStick#readme",
-  "dependencies": {},
+  "dependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.3.0"
+  },
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
