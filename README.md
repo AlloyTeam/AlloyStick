@@ -11,9 +11,9 @@ http://alloyteam.github.io/AlloyStick
 </a>
 </p>
 
-
 >本项目近期在进行重构，因此变动会比较大，如果您有什么好的想法，欢迎在[这里](https://github.com/AlloyTeam/AlloyStick/issues)提出
- 
+>magic分支：正在开发的分支
+
 ### CONTENT
 
 * [demo](https://github.com/AlloyTeam/AlloyStick#demo)  
